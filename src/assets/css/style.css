@@ -1,0 +1,1694 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+body {
+    margin: 0px;
+    padding: 0px;
+    font-size: 14px;
+    color: rgb(58, 58, 58);
+    font-weight: 400;
+    position: relative;
+    font-family: Mulish, sans-serif !important;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.clearfix::before,
+.clearfix::after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+
+.clearfix::after {
+    clear: both;
+}
+
+.clr,
+.clear {
+    clear: both;
+}
+
+header,
+footer,
+aside,
+article,
+section,
+nav,
+figure {
+    position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul,
+li,
+ol {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    outline: none !important;
+}
+
+a:hover,
+a:focus {
+    outline: none;
+    text-decoration: none !important;
+}
+
+img {
+    border: 0px;
+    outline: none;
+    max-width: 100%;
+}
+
+input[type="text"],
+input[type="password"],
+select,
+textarea,
+input[type="button"] {
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.fltL {
+    float: left;
+}
+
+.fltR {
+    float: right !important;
+}
+
+.padding_none {
+    padding: 0px !important;
+}
+
+.border_none {
+    border: none !important;
+}
+
+.navbar-toggle {
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.icon-bar {
+    background-color: rgb(0, 0, 0) !important;
+}
+
+.p_right0 {
+    padding-right: 0px !important;
+}
+
+.p_left0 {
+    padding-left: 0px !important;
+}
+
+.margin0 {
+    margin: 0px !important;
+}
+
+input[type="date"].form-control {
+    text-transform: uppercase !important;
+}
+
+select {
+    cursor: pointer;
+    outline: 0px;
+}
+
+.Button {
+    border: none;
+    padding: 10px 25px;
+    text-align: center;
+    transition: all 0.5s ease-in-out 0s;
+    font-weight: 700;
+    position: relative;
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+    border-radius: 5px;
+    box-shadow: none;
+    background: rgb(2, 141, 236);
+    display: inline-block;
+    outline: 0px !important;
+}
+
+.Button:hover {
+    background-position: 0px 80px;
+    color: rgb(255, 255, 255);
+}
+
+.Button.Cancel {
+    background: rgb(219, 219, 219);
+    color: rgb(0, 0, 0);
+    margin: 0px 0px 0px 5px;
+    padding: 10px 16px;
+}
+
+.CheckBox {
+    display: inline-block;
+    position: relative;
+    padding-left: 33px;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+    font-weight: 600;
+    color: rgb(45, 45, 45);
+    margin: 0px;
+    min-height: 20px;
+}
+
+.CheckBox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0px;
+    width: 0px;
+}
+
+.CheckBox .checkmark {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 20px;
+    width: 24px;
+    background-color: transparent;
+    border: 1px solid rgb(2, 141, 236);
+    border-radius: 2px;
+}
+
+.CheckBox:hover input ~ .checkmark {
+    background-color: rgb(2, 141, 236);
+    border-color: rgb(2, 141, 236);
+}
+
+.CheckBox input:checked ~ .checkmark {
+    background-color: rgb(2, 141, 236);
+}
+
+.CheckBox .checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 8px;
+    top: 2px;
+    width: 5px;
+    height: 11px;
+    border-style: solid;
+    border-color: white;
+    border-image: initial;
+    border-width: 0px 2px 2px 0px;
+    transform: rotate(45deg);
+}
+
+.CheckBox input:checked ~ .checkmark::after {
+    display: block;
+}
+
+.Switch {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0px;
+    padding: 2px 0px 3px 50px;
+    font-weight: 400;
+    font-size: 12px;
+    color: rgb(100, 100, 103);
+    float: right;
+}
+
+.Switch input {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+}
+
+.Switch .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0px;
+    background-color: rgb(2, 141, 236);
+    transition: all 0.4s ease 0s;
+    height: 21px;
+    border-radius: 50px;
+    width: 40px;
+    border: 1px solid rgb(2, 141, 236);
+    min-width: auto;
+}
+
+.Switch .slider::before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 3px;
+    bottom: 0px;
+    top: 0px;
+    background: rgb(255, 255, 255);
+    transition: all 0.4s ease 0s;
+    border-radius: 50%;
+    margin: auto;
+    transform: translateX(19px);
+}
+
+.Switch input:checked + .slider {
+    background: rgb(255, 255, 255);
+}
+
+.Switch input:checked + .slider::before {
+    transform: translateX(0px);
+    background: rgb(2, 141, 236);
+}
+
+.LoginArea .LoginBox {
+    background-color: rgb(251, 251, 251);
+    padding: 0px 40px;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    background-image: url("../images/bg.png");
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+}
+
+.LoginArea .LoginBox::before {
+    content: "";
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+.LoginArea .LoginBox .LoginLeft {
+    width: calc(100% - 450px);
+}
+
+.LoginArea .LoginBox .LoginRight {
+    width: 100%;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 400px;
+    position: relative;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.11) 0px 6px 15px 0px;
+}
+
+.LoginArea .LoginBox .LoginRight aside {
+    background-color: white;
+    padding: 0px 0px 20px;
+    border-radius: 20px;
+}
+
+.LoginArea .LoginBox .LoginRight aside h4 {
+    text-align: center;
+    font-weight: 800;
+    color: rgb(2, 141, 236);
+    font-size: 17px;
+    margin: 10px 0px 30px;
+}
+.LoginArea .LoginBox .LoginRight aside h3 {
+    text-align: center;
+    font-weight: 800;
+    font-size: 13px;
+    margin: 10px 0px 30px;
+}
+.LoginArea .LoginBox .LoginRight aside h3 a{color: #0ab20a;}
+.LoginArea .LoginBox .LoginRight aside p {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgb(68, 68, 68);
+    margin: 0px 0px 20px;
+}
+
+.LoginArea .LoginBox .LoginRight aside figure {
+    text-align: center;
+    margin: 0px;
+}
+
+.LoginArea .LoginBox .LoginRight aside figure img {
+    max-width: 120px;
+}
+
+.LoginArea .LoginBox .LoginRight aside .form-group {
+    position: relative;
+    margin: 0px 0px 30px;
+}
+
+.LoginArea .LoginBox .LoginRight aside .form-group:last-child {
+    margin: 0px;
+}
+
+.LoginArea .LoginBox .LoginRight aside .form-group label {
+    display: inline-block;
+    color: #000;
+    font-size: 12px;
+    font-weight: 600;
+    position: absolute;
+    background-color: #fff;
+    left: 11px;
+    top: -12px;
+    padding: 3px 10px;
+    margin: 0;
+}
+
+.LoginArea .LoginBox .LoginRight aside .form-group .Icon {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+}
+
+.LoginArea .LoginBox .LoginRight aside .form-group .form-control {
+    box-shadow: none;
+    border: 1px solid rgb(221, 221, 221);
+    padding: 13px 14px 10px 14px;
+    height: auto;
+    border-radius: 5px;
+    font-size: 13px;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+}
+
+.LoginArea .LoginBox .LoginRight aside .form-group .OTPBox {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 0px 10px;
+}
+
+.LoginArea .LoginBox .LoginRight aside .form-group .OTPBox .form-control {
+    padding: 0px;
+    text-align: center;
+    width: 50px;
+    height: 45px;
+    font-size: 17px;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+    line-height: 30px;
+}
+
+.LoginArea .LoginBox .LoginRight aside .Congratulations {
+    text-align: center;
+}
+
+.LoginArea .LoginBox .LoginRight aside .Congratulations img {
+    width: 100px;
+}
+
+.LoginArea .LoginBox .LoginRight aside .Congratulations h3 {
+    margin: 15px 0px;
+    font-weight: 800;
+    color: rgb(0, 0, 0);
+}
+
+.LoginArea .LoginBox .LoginRight aside .Congratulations h6 {
+    font-weight: 700;
+    color: rgb(58, 58, 58);
+    font-size: 14px;
+}
+
+.LoginArea .LoginBox .LoginRight button {
+    background-color: #028dec;
+    color: white;
+    margin: 0px auto 10px;
+    display: block;
+}
+
+.LoginArea .LoginBox .LoginRight article {
+    text-align: center;
+}
+
+.LoginArea .LoginBox .LoginRight article p {
+    position: relative;
+    margin: 0px 0px 6px;
+}
+
+.LoginArea .LoginBox .LoginRight article p::before {
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 1px;
+    background-color: rgb(255, 255, 255);
+    left: 0px;
+    top: 10px;
+    right: 0px;
+    margin: auto;
+}
+
+.LoginArea .LoginBox .LoginRight article p span {
+    background-color: rgb(0, 87, 183);
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    font-weight: 700;
+    position: relative;
+    padding: 0px 15px;
+}
+
+.LoginArea .LoginBox .LoginRight article a {
+    color: black;
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: underline;
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+.Header {
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px;
+    position: fixed;
+    width: calc(100% - 235px);
+    left: 235px;
+    top: 0px;
+    z-index: 99;
+    background-color: #0063ba;
+    padding: 0 50px;
+}
+
+.Header .Logo {
+    width: 235px;
+    text-align: center;
+    padding: 14px 0px;
+    float: left;
+    height: 60px;
+    background-color: rgb(255, 255, 255);
+}
+
+.Header .Logo img {
+    width: 140px;
+}
+
+.Header .Navigation {
+    transition: all 0.2s ease 0s;
+    width: 100%;
+    text-align: right;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.Header .Navigation .Bell {
+    display: inline-block;
+    margin: 0px 30px 0px 0px;
+}
+
+.Header .Navigation .Bell a {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+}
+
+.Header .Navigation .Avater {
+    position: relative;
+    display: inline-block;
+}
+
+.Header .Navigation .Avater a {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    padding: inherit;
+    font-weight: 600;
+}
+
+.Header .Navigation .Avater a figure {
+    width: 40px;
+    border-radius: 50%;
+    margin: 0px 15px 0px 0px;
+    overflow: hidden;
+    height: 40px;
+    border: 2px solid rgb(255, 255, 255);
+    background: white;
+}
+.Header .Navigation .Avater a figure img {width: 100%; height: 100%; object-fit: cover;}
+.Header .Navigation .Avater ul {
+    position: absolute;
+    background: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 11px 0px;
+    transform: perspective(600px) rotateX(-90deg);
+    transform-origin: 0px 0px 0px;
+    right: 0px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease 0s;
+    z-index: 99;
+    top: 100%;
+    text-align: left;
+    min-width: 200px;
+    display: block;
+    width: auto;
+}
+
+.Header .Navigation .Avater ul li {
+    margin: 0px;
+    border-bottom: 1px solid rgb(210, 211, 212);
+}
+
+.Header .Navigation .Avater ul li figure {
+    background: white;
+}
+.Header .Navigation .Avater ul li figure img {width: 100%; height: 100%; object-fit: cover;}
+.Header .Navigation .Avater ul li:first-child {
+    background: #0063ba;
+    position: relative;
+    padding: 15px 10px 15px 60px;
+    text-align: left;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+.Header .Navigation .Avater ul li figure {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    position: absolute;
+    top: 6  px;
+    left: 15px;
+    border: 2px solid rgb(255, 255, 255);
+    overflow: hidden;
+    margin: 0px;
+}
+
+.Header .Navigation .Avater ul li h4 {
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    line-height: 18px;
+}
+
+.Header .Navigation .Avater ul li h4 span {
+    font-size: 11px;
+    font-weight: 400;
+    display: block;
+}
+
+.Header .Navigation .Avater ul li a {
+    color: rgb(78, 78, 78);
+    padding: 10px 20px;
+    font-weight: 400;
+    transition: all 0.5s ease-in-out 0s;
+}
+
+.Header .Navigation .Avater ul li a span {
+    margin: 0px 10px 0px 0px;
+}
+
+.Header .Navigation .Avater ul li a:hover {
+    background-color: #0063ba;
+    color: rgb(255, 255, 255);
+}
+
+.Header .Navigation .Avater:hover ul {
+    opacity: 1;
+    visibility: visible;
+    transform: perspective(600px) rotateX(0deg);
+}
+.Header .Navigation .Back {
+    font-size: 15px;
+    font-weight: 700;
+    margin-right: 20px;
+    color: white;
+}
+.Header .Navigation .Back .fa {
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 2px;
+}
+.SidenavBar {
+    position: fixed;
+    width: 235px;
+    top: 0px;
+    padding: 0px;
+}
+
+.SidenavBar .Logo {
+    padding: 10px 0px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    margin: 0px;
+    width: 100%;
+}
+
+.SidenavBar .Logo img {
+    margin: auto;
+    display: block;
+    background: white;
+    width: 150px;
+}
+
+.SidenavBar ul::-webkit-scrollbar-track {
+    background: rgb(187, 187, 187);
+    border-radius: 0px;
+}
+
+.SidenavBar ul::-webkit-scrollbar-thumb {
+    background-color: #0063ba;
+    border-radius: 0px;
+    transition: background-color 0.2s linear 0s, width 0.2s ease-in-out 0s;
+}
+
+.SidenavBar ul::-webkit-scrollbar {
+    width: 7px;
+    border-radius: 0px;
+}
+
+.SidenavBar ul {
+    margin: 0px;
+    height: 100vh;
+    overflow: auto;
+}
+
+.SidenavBar ul li {
+    margin: 0px;
+}
+
+.SidenavBar ul li a {
+    display: block;
+    cursor: pointer;
+    padding: 13px 20px 13px 45px;
+    transition: all 0.5s ease-in-out 0s;
+    font-size: 14px;
+    text-transform: capitalize;
+    position: relative;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    font-family: "Mulish";
+    font-weight: 600;
+    color: #000;
+}
+
+.SidenavBar ul li a span {
+    font-size: 15px;
+    display: inline-block;
+    position: absolute;
+    top: 13px;
+    left: 20px;
+}
+
+.SidenavBar ul li.active a {
+    background-color: #0063ba;
+    color: rgb(255, 255, 255);
+}
+
+.SidenavBar ul li a:hover {
+    background-color: #000;
+    color: rgb(255, 255, 255) !important;
+}
+/* .SidenavBar ul li a.active{
+    background-color: #0063ba;
+    color: rgb(255, 255, 255);
+} */
+.SidenavBar ul li a.active {background-color:#1d75bd;color: #141522;font-weight: 600;}
+
+.SidenavBar ul li a.dropdown-toggle::after {
+    content: "ï„‡";
+    font-family: FontAwesome;
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    font-size: 15px;
+    border: none;
+    font-weight: 700;
+    line-height: 10px;
+}
+
+.SidenavBar ul li ol {
+    float: none;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    position: relative !important;
+    transform: inherit !important;
+}
+
+.SidenavBar ul li.active ol {
+    display: block;
+}
+
+.SidenavBar ul li.active ol li a {
+    background: transparent;
+    color: #0063ba !important;
+}
+
+.SidenavBar ul li.active ol li a:hover {
+    color: rgb(249, 140, 28) !important;
+}
+
+.WrapperArea {
+    margin-left: 235px;
+    flex: 1 1 auto;
+    width: calc(100% - 235px);
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    transition: all 0.5s ease-in-out 0s;
+}
+
+.WrapperArea .WrapperBox {
+    padding: 20px;
+    background-color: rgb(239, 239, 239);
+    min-height: calc(100vh - 60px);
+}
+
+.Small-Wrapper {
+    background-color: rgb(255, 255, 255);
+    padding: 25px;
+    border: 1px solid rgb(220, 220, 220);
+    border-radius: 10px;
+}
+
+.Small-Wrapper + .Small-Wrapper {
+    margin-top: 20px;
+}
+.TitleBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 0px 20px;
+}
+.TitleBox h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+.TitleBox ul {
+    display: flex;
+}
+.TitleBox ul li {
+    margin: 0px 0px 0px 10px;
+}
+
+.TitleBox ul a span img {
+    width: 15px;
+}
+
+h4.Title {
+    margin: 0px;
+    font-weight: 700;
+    text-transform: capitalize;
+    font-size: 18px;
+    color: #0063ba;
+}
+h3.Title {
+    font-size: 20px;
+    color: #c01c2d;
+}
+
+a.TitleLink {
+    background-image: linear-gradient(45deg, rgb(0 99 186), rgb(76 78 78));
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+a.TitleLink:hover {
+    background-color: rgb(0, 0, 0);
+}
+
+.SearchBox {
+    margin: 0px;
+    float: right;
+    display: flex;
+}
+
+.SearchBox form {
+    margin: 0px 10px 0px 0px;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.SearchBox form input {
+    margin: 0px;
+    border: 1px solid rgb(221, 221, 221);
+    box-shadow: none;
+    outline: 0px;
+    padding: 0px 13px;
+    height: 43px;
+    min-width: 225px;
+    border-radius: 5px 0px 0px 5px;
+    font-weight: 600;
+}
+
+.SearchBox form button {
+    border-radius: 0px;
+}
+
+.Filter {
+    display: flex;
+    /* flex-wrap: wrap; */
+}
+
+.Filter .form-group {
+    margin: 0px 10px 20px 0px;
+    display: inline-block;
+}
+
+.Filter .form-group:last-child {
+    margin: 0px 0px 20px;
+}
+
+.Filter .form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+}
+
+.Filter .form-group .form-control {
+    height: 42px;
+    line-height: 25px;
+    padding: 8px 10px;
+    border: 1px solid rgb(203, 202, 202);
+    font-size: 14px;
+    margin: 0px 10px 0px 0px;
+    box-shadow: none;
+    color: rgb(62, 61, 61);
+    font-weight: 600;
+    border-radius: 5px;
+    appearance: auto;
+}
+
+.TableList {
+    overflow: auto;
+    min-height: 500px;
+}
+
+.TableList table tr th {
+    background-color: rgb(220, 220, 220);
+    font-weight: 700;
+    text-transform: capitalize;
+    color: rgb(0, 0, 0);
+}
+
+.TableList table tr td,
+.TableList table tr th {
+    font-size: 13px;
+    padding: 14px 20px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.TableList table tr td {
+    font-weight: 600;
+    color: rgb(64, 64, 64);
+}
+
+.TableList table tr th:first-child {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.TableList table tr th:last-child {
+    border-radius: 0px 10px 10px 0px;
+}
+
+.TableList table tr:nth-child(2n) td {
+    background-color: rgb(239, 237, 237);
+}
+
+.TableList table tr:nth-child(2n) td:first-child {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.TableList table tr:nth-child(2n) td:last-child {
+    border-radius: 0px 10px 10px 0px;
+}
+
+.TableList table tr td strong {
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+}
+
+.TableList table tr td a:hover {
+    color: rgb(0, 0, 0);
+}
+
+.TableList table tr td figure {
+    width: 45px;
+    height: 45px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    box-shadow: rgb(219, 219, 219) 0px 0px 14px;
+    overflow: hidden;
+    margin: 0px;
+}
+
+.TableList table tr td figure img {
+    width: 100%;
+    height: 100%;
+}
+
+.TableList table tr td:last-child,
+.TableList table tr th:last-child {
+    min-width: 105px;
+    text-align: center;
+}
+
+.TableList table tr td:last-child a {
+    margin: 0px 5px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.TableList table tr td span {
+    padding: 6px 10px;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    width: auto;
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+    min-width: 80px;
+    border-radius: 50px;
+}
+
+.TableList table tr td .Actions {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.TableList table tr td .Actions a.Resend {
+    padding: 5px 15px;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    width: auto;
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    background-color: rgb(231, 163, 61);
+}
+
+.TableList table tr td a.Green {
+    color: rgb(55, 167, 19);
+    text-decoration: underline;
+}
+
+.TableList table tr td a.Red {
+    color: rgb(226, 24, 24);
+}
+
+.TableList table tr td a.Blue {
+    color: rgb(56, 106, 152);
+}
+
+.TableList table tr td a.Yellow {
+    color: rgb(254, 202, 5);
+}
+
+.TableList table tr td a.Pink {
+    color: rgb(253, 84, 109);
+}
+
+.TableList table tr td span.Green {
+    background-color: rgb(55, 167, 19);
+}
+
+.TableList table tr td span.Blue {
+    background-color: rgb(19, 155, 191);
+}
+
+.TableList table tr td span.Red {
+    background-color: rgb(187, 15, 15);
+}
+
+.TableList table tr td span.Orange {
+    background-color: rgb(223, 153, 25);
+}
+
+.TableList table tr td span.Yellow {
+    background-color: rgb(231, 163, 61);
+}
+
+.TableList table tr td .Actions button {
+    padding: 7px 18px;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    width: auto;
+    display: inline-block;
+    text-align: center;
+    font-size: 13px;
+    border: none;
+    font-weight: 600;
+    margin: 0px 3px;
+}
+
+.TableList table tr td .Actions button.Gray {
+    background-color: rgb(199, 199, 199);
+    color: rgb(0, 0, 0);
+}
+
+.TableList table tr td .Actions button.Green {
+    background-color: rgb(55, 167, 19);
+}
+
+.TableList table tr td .Actions button.Blue {
+    background-color: rgb(19, 155, 191);
+}
+
+.TableList table tr td .Actions button.Red {
+    background-color: rgb(187, 15, 15);
+}
+
+.TableList table tr td .Actions button.Orange {
+    background-color: rgb(223, 153, 25);
+}
+
+.PaginationBox {
+    margin: 20px 0px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.PaginationBox .PaginationLeft p {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0px 10px 0px 0px;
+}
+
+.PaginationBox .PaginationLeft p span {
+    color: #6ad29e;
+}
+
+.PaginationBox .PaginationRight ul li {
+    display: inline-block;
+    margin: 0px 4px;
+}
+
+.PaginationBox .PaginationRight ul li a {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgb(62, 62, 62);
+}
+
+.PaginationBox .PaginationRight ul li.active a {
+    color: #6ad29e;
+}
+
+.ModalBox .modal-dialog .Category {
+    padding: 10px;
+}
+
+.ModalBox .modal-dialog .Category h3 {
+    text-align: center;
+    font-weight: 800;
+    margin: 0px 0px 20px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    padding: 0px 0px 15px;
+    font-size: 23px;
+}
+.ModalBox .modal-dialog .Category h5{
+    text-align: center;
+    font-weight: 600;
+    margin: 0px 0px 20px;
+    font-size: 18px;
+}
+.ModalBox .modal-dialog .Category p{
+    font-weight: 600;
+    margin: 0px 0px 10px;
+    font-size: 13px;
+}
+.ModalBox .modal-dialog .Category .form-group {
+    margin: 0px 0px 20px;
+    position: relative;
+}
+
+.ModalBox .modal-dialog .Category .form-group label {
+    /* display: block; */
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    font-family: Roboto;
+}
+
+.ModalBox .modal-dialog .Category .form-group .form-control {
+    box-shadow: none;
+    border: 1px solid rgb(195, 195, 195);
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+    line-height: 22px;
+    font-family: Roboto;
+    height: auto;
+    padding: 10px 15px;
+    font-weight: 400;
+}
+
+.ModalBox .modal-dialog .Category .form-group textarea.form-control {
+    height: auto;
+}
+
+.ModalBox .modal-dialog .Category .form-group p {
+    color: rgb(114, 114, 114);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.ModalBox .modal-dialog .CloseModal {
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    width: 26px;
+    height: 26px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    border-radius: 50%;
+}
+
+.DashboardArea {
+    padding: 0px;
+}
+
+.DashboardArea .DashboardBox {
+    border-radius: 10px;
+    margin: 0px 0px 25px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    min-height: 180px;
+}
+
+.DashboardArea .DashboardBox::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.3);
+    top: -25px;
+    right: -25px;
+    border-radius: 50%;
+}
+
+.DashboardArea .DashboardBox::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.3);
+    bottom: -25px;
+    left: -25px;
+    border-radius: 50%;
+}
+
+.DashboardArea .DashboardBox aside {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+}
+
+.DashboardArea .DashboardBox aside span {
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.DashboardArea .DashboardBox article {
+    text-align: right;
+}
+
+.DashboardArea .DashboardBox article p {
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    margin: 0px 0px 6px;
+}
+
+.DashboardArea .DashboardBox article h5 {
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+    font-weight: 800;
+}
+.DashboardArea .DashboardBox article h3{
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+}
+.DashboardBox.Dashboard1 {
+    background-color: rgb(189, 162, 133);
+}
+
+.DashboardBox.Dashboard1 aside span {
+    color: rgb(189, 162, 133);
+}
+
+.DashboardBox.Dashboard2 {
+    background-color: rgb(11, 167, 131);
+}
+
+.DashboardBox.Dashboard2 aside span {
+    color: rgb(0, 202, 169);
+}
+
+.DashboardBox.Dashboard3 {
+    background-color: rgb(1, 107, 181);
+}
+
+.DashboardBox.Dashboard3 aside span {
+    color: rgb(1, 107, 181);
+}
+
+.DashboardBox.Dashboard4 {
+    background-color: rgb(75, 200, 233);
+}
+
+.DashboardBox.Dashboard4 aside span {
+    color: rgb(3, 164, 207);
+}
+
+.DashboardBox.Dashboard5 {
+    background-color: rgb(225, 125, 67);
+}
+
+.DashboardBox.Dashboard5 aside span {
+    color: rgb(225, 125, 67);
+}
+
+.DashboardBox.Dashboard6 {
+    background-color: rgb(25, 131, 163);
+}
+
+.DashboardBox.Dashboard6 aside span {
+    color: rgb(223, 28, 217);
+}
+
+.DashboardBox.Dashboard7 {
+    background-color: rgb(140, 108, 203);
+}
+
+.DashboardBox.Dashboard7 aside span {
+    color: rgb(140, 108, 203);
+}
+
+.DashboardBox.Dashboard8 {
+    background-color: rgb(26, 181, 174);
+}
+
+.DashboardBox.Dashboard8 aside span {
+    color: rgb(26, 181, 174);
+}
+
+.CommonTabs{ margin: 0 0 15px 0; }
+.CommonTabs .nav-tabs{border:none;margin: 0;}
+.CommonTabs .nav-tabs li{margin:0 15px 0 0}
+.CommonTabs .nav-tabs li a{background-color: #d0cece;border-radius: 5px;padding: 10px 35px;border: none;color:#000;font-weight: 600;cursor:pointer;text-transform:capitalize;margin:0;font-size: 15px;display: inline-block;}
+.CommonTabs .nav-tabs li a.active{background-color: #1e3f6b;color:#fff;}
+.CommonTabs .nav-link {
+    background-color: #ededed;
+    border-radius: 5px;
+    padding: 10px 25px;
+    border: none;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: capitalize;
+    margin: 0px 5px 0px 5px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.CommonTabs .nav-link.active {
+    border-color: #dee2e6 #dee2e6 #fff;
+    background-color: #1e3f6b;
+    color: #fff;
+}
+
+.InformationBox {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin: 0 0 30px 0;
+}
+.InformationBox h4 {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+    color: #000;
+}
+.InformationBox h4 a {
+    float: right;
+    font-size: 14px;
+    color: #000;
+    font-weight: 600;
+    text-decoration: underline;
+    display: inline-block;
+}
+.InformationBox .ProfileBox {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+}
+.InformationBox .ProfileBox figure {
+    margin: 0;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.InformationBox .ProfileBox figcaption {
+    width: calc(100% - 85px);
+    padding: 0 0 0 15px;
+}
+.InformationBox .ProfileBox figcaption h5 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 10px 0;
+}
+.InformationBox .ProfileBox figcaption p {
+    margin: 0 0 10px 0;
+}
+.InformationBox .ProfileBox figcaption p:last-child {
+    margin: 0;
+}
+.InformationBox .ProfileBox figcaption p strong {
+    font-weight: 600;
+    text-transform: capitalize;
+    width: 140px;
+    display: inline-block;
+    position: relative;
+    margin: 0 15px 0 0;
+    padding: 0 10px 0 0;
+    color: #000;
+    font-size: 13px;
+    font-weight: 700;
+}
+.InformationBox .ProfileBox figcaption p strong:after {
+    content: ":";
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.InformationBox .ProfileBox figcaption p span {
+    font-weight: 500;
+    text-transform: capitalize;
+    color: #5e5c5c;
+    font-size: 13px;
+    display: inline-block;
+}
+
+.InformationBox .Information {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+.InformationBox .Information + .Information {
+    margin-top: 20px;
+}
+.InformationBox .Information article {
+    display: flex;
+}
+.InformationBox .Information article aside {
+    width: 100%;
+    padding: 0 20px 0 0;
+}
+.InformationBox .Information article aside p {
+    margin: 0 0 10px 0;
+    display: flex;
+}
+.InformationBox .Information article aside p:last-child {
+    margin: 0;
+}
+.InformationBox .Information article aside p strong {
+    width: 190px;
+    display: inline-block;
+    position: relative;
+    margin: 0 15px 0 0;
+    padding: 0 10px 0 0;
+    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+}
+.InformationBox .Information article aside p strong:after {
+    content: ":";
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.InformationBox .Information article aside p span {
+    font-weight: 500;
+    color: #5e5c5c;
+    font-size: 13px;
+    display: inline-block;
+    width: calc(100% - 205px);
+    line-height: 24px;
+}
+.InformationBox .Information.InformationDocumnet article {
+    flex-wrap: wrap;
+}
+.InformationBox .Information.InformationDocumnet article aside {
+    padding: 0;
+}
+
+.InformationBox .Information article aside h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: black;
+}
+.InformationBox .Information.SpecialRequest {
+    height: 100%;
+}
+.InformationBox .Information.SpecialRequest article aside h6 {
+    text-transform: capitalize;
+    width: 190px;
+    display: inline-block;
+    position: relative;
+    margin: 0 15px 15px 0;
+    padding: 0 10px 0 0;
+    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+}
+.InformationBox .Information.SpecialRequest article aside p {
+    font-weight: 400;
+    color: #5e5c5c;
+    font-size: 13px;
+    display: inline-block;
+}
+.InformationBox .Information table tbody tr td {
+    padding: 0px 5px 7px 0;
+}
+.InformationBox .Information table tbody tr td:first-child {
+    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+}
+.InformationBox .Information table tbody tr td:last-child {
+    color: #5e5c5c;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: right;
+}
+.InformationBox .Information table tfoot tr td {
+    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+}
+.InformationBox .Information table tfoot tr td:last-child {
+    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.BusinessPersonal {
+    background-color: #ffffff;
+    margin: 0 0 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+.BusinessPersonal figure {
+    width: 90px;
+    height: 90%;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0;
+    border: 3px solid #fff;
+    box-shadow: 0 0 5px #c1c0c0;
+}
+.BusinessPersonal figcaption {
+    width: calc(100% - 200px);
+    padding: 0 0 0 15px;
+}
+.BusinessPersonal figcaption h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 7px 0;
+}
+.BusinessPersonal figcaption p {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 27px;
+}
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.pagination a {
+    color: black;
+    float: left;
+    padding: 2px 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+.pagination a.active {
+    background-color: #000;
+    color: white;
+    border-radius: 5px;
+}
+.TableList tr td button {
+    border: 1px solid rgb(145, 140, 140);
+    padding: 2px 6px;
+    font-size: 12px;
+    color: white;
+    background: rgb(145, 140, 140);
+    border-radius: 5px;
+}
+.CommonForm .form-group {
+    position: relative;
+}
+.CommonForm .form-control {
+    box-shadow: none;
+    border: 1px solid #ddd;
+}
+.CommonForm label {
+    font-size: 13px;
+    color: black;
+    font-weight: 700;
+}
+.PasswordBox {
+    max-width: 575px;
+}
+.PasswordBox aside {
+    margin: 0 0 15px 0;
+}
+.PasswordBox aside h4 {
+    font-weight: 700;
+    font-size: 20px;
+}
+.PasswordBox article {
+    background-color: #efefef;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.Icon {
+    position: absolute;
+    top: 38px;
+    right: 23px;
+}
+.Information figure {
+    margin: 40px 0px 0px 0px;
+}
+.Information figure img {
+    margin: 0px 20px 0px 0px;
+    width: 120px;
+}
+
+.Information textarea .form-control {
+    box-shadow: none;
+    font-size: 11px;
+}
+
+.form-control{
+        padding: 15px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        box-shadow: none;
+        outline: 0;
+        height: auto;
+}
+.PasswordBox aside figure {
+    width: 100px;
+}
+.PasswordBox aside figure span {
+    border-radius: 50%;
+    display: inline-block;
+    height: 100px;
+    overflow: hidden;
+    width: 100px;
+}
+
+.PasswordBox aside figure span img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+.UploadOverlay {
+    bottom: 0;
+    height: 30px;
+    position: absolute;
+    right: 15px;
+    width: 30px;
+}
+.UploadOverlay input {
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+.LogOutModalArea {text-align: center;}
+.LogOutModalArea span {width: 49px; height: 49px; margin: 0 0 20px 0; display: inline-block; background-color: rgba(254, 240, 240, 1); line-height: 49px; text-align: center; border-radius: 50%; }
+.LogOutModalArea h5 {color: rgba(26, 28, 33, 1); font-weight: 600; font-size: 20px; margin: 0 0 15px 0; }
+.LogOutModalArea p {color: rgba(102, 112, 133, 1); font-size: 15px; letter-spacing: 0.5px;}
+.LogOutModalArea .Buttons {padding: 20px 0 0 0; display: flex; justify-content: space-between; margin: 20px 0 0 0;}
+.LogOutModalArea .Buttons .CancelBtn {background-color: rgba(224, 226, 231, 1); border-radius: 10px; color: rgba(102, 112, 133, 1); font-weight: 700; font-size: 15px; letter-spacing: 0.5px; padding: 8px 25px; border: none; outline: none;}
+.LogOutModalArea .Buttons .ConfirmBtn {background-color: rgba(252, 52, 0, 1); border-radius: 10px; color: rgba(255, 255, 255, 1); font-weight: 700; font-size: 15px; letter-spacing: 0.5px; padding: 8px 25px; border: none; outline: none;}
+.CommonForm .form-group .Eye {
+    position: absolute;
+    right: 15px;
+    top: 43px;
+  }
+.FormBox a.add-more{}
