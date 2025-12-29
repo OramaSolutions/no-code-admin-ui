@@ -47,18 +47,18 @@ const Sidenav = ({ isOpen, onClose }) => {
             icon: FaCube,
             color: 'text-purple-600'
         },
-        {
-            path: '/report-management',
-            name: 'Reported Issue Management',
-            icon: FaExclamationTriangle,
-            color: 'text-orange-600'
-        },
-        {
-            path: '/notification-management',
-            name: 'Notification Management',
-            icon: FaBell,
-            color: 'text-indigo-600'
-        },
+        // {
+        //     path: '/report-management',
+        //     name: 'Reported Issue Management',
+        //     icon: FaExclamationTriangle,
+        //     color: 'text-orange-600'
+        // },
+        // {
+        //     path: '/notification-management',
+        //     name: 'Notification Management',
+        //     icon: FaBell,
+        //     color: 'text-indigo-600'
+        // },
         {
             path: '/my-account-management',
             name: 'My Account',
@@ -88,12 +88,11 @@ const Sidenav = ({ isOpen, onClose }) => {
             {isOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" onClick={onClose}></div>
             )}
-            
-            <aside 
+
+            <aside
                 id="sidebar"
-                className={`fixed top-0 left-0 z-50 w-64 h-full bg-white shadow-lg border-r border-gray-200 flex flex-col transition-transform duration-300 ease-in-out ${
-                    isOpen ? 'translate-x-0' : '-translate-x-full'
-                }`}
+                className={`fixed top-0 left-0 z-50 w-64 h-full bg-white shadow-lg border-r border-gray-200 flex flex-col transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+                    }`}
             >
                 {/* Logo Section with Close Button */}
                 <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200 bg-gradient-to-r from-blue-100 to-blue-200">
@@ -115,7 +114,7 @@ const Sidenav = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* Navigation Menu */}
-                <nav className="flex-1 px-4 py-6 overflow-y-auto">
+                <nav className="flex-1 px- py-6 overflow-y-auto flex flex-col justify-between ">
                     <ul className="space-y-2">
                         {menuItems.map((item, index) => {
                             const IconComponent = item.icon
@@ -126,16 +125,14 @@ const Sidenav = ({ isOpen, onClose }) => {
                                         onClick={() => window.innerWidth < 768 && onClose()}
                                     >
                                         {({ isActive }) => (
-                                            <div className={`group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
-                                                isActive
+                                            <div className={`group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${isActive
                                                     ? 'bg-blue-50 text-blue-700 border-r-3 border-blue-600 shadow-sm'
                                                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                                            }`}>
+                                                }`}>
                                                 <div className="flex items-center justify-center w-6 h-6 mr-3">
                                                     <IconComponent
-                                                        className={`w-5 h-5 transition-colors duration-200 ${
-                                                            isActive ? 'text-blue-600' : `${item.color} group-hover:${item.color}`
-                                                        }`}
+                                                        className={`w-5 h-5 transition-colors duration-200 ${isActive ? 'text-blue-600' : `${item.color} group-hover:${item.color}`
+                                                            }`}
                                                     />
                                                 </div>
                                                 <span className="truncate">{item.name}</span>
@@ -147,31 +144,33 @@ const Sidenav = ({ isOpen, onClose }) => {
                         })}
 
                         {/* Divider */}
-                        <li className="pt-4">
-                            <div className="border-t border-gray-200"></div>
-                        </li>
 
-                        {/* Logout Button */}
-                        <li className="pt-2">
-                            <button
-                                onClick={showlogoutHandler}
-                                className="group w-full flex items-center px-3 py-3 text-sm font-medium text-red-600 hover:bg-red-50 hover:text-red-700 rounded-lg transition-all duration-200"
-                            >
-                                <div className="flex items-center justify-center w-6 h-6 mr-3">
-                                    <FaSignOutAlt className="w-5 h-5 transition-colors duration-200" />
-                                </div>
-                                <span>Logout</span>
-                            </button>
-                        </li>
                     </ul>
+                    {/* <li className="pt-4">
+                        <div className="border-t border-gray-200"></div>
+                    </li> */}
+
+                    {/* Logout Button */}
+                    <li className="pt-2">
+                    <div className="border-t border-gray-200"></div>
+                        <button
+                            onClick={showlogoutHandler}
+                            className="group w-full flex items-center px-3 py-3 text-sm font-medium text-red-600 hover:bg-red-50 hover:text-red-700 rounded-lg transition-all duration-200"
+                        >
+                            <div className="flex items-center justify-center w-6 h-6 mr-3">
+                                <FaSignOutAlt className="w-5 h-5 transition-colors duration-200" />
+                            </div>
+                            <span>Logout</span>
+                        </button>
+                    </li>
                 </nav>
 
                 {/* Footer/Version Info */}
-                <div className="p-4 border-t border-gray-200 bg-gray-50">
+                {/* <div className="p-4 border-t border-gray-200 bg-gray-50">
                     <div className="text-center">
                         <p className="text-xs text-gray-500">Admin Portal v2.0</p>
                     </div>
-                </div>
+                </div> */}
             </aside>
 
             <LogoutModal

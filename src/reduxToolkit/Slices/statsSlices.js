@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import config from '../../config/config.js';
 import { isLoggedIn } from "../../utils";
+import axiosInstance from '../../apis/axiosInstance.js';
 
 const statsEndpoints = {
   totalUsers: '/users/total',
@@ -37,10 +38,9 @@ Object.entries(statsEndpoints).forEach(([key, endpoint]) => {
     `stats/${thunkName}`,
     async (_, { rejectWithValue }) => {
       try {
-        const token = isLoggedIn("adminLogin");
-        const response = await axios.get(
-          `${config.Url}stats${endpoint}`,
-          { headers: { Authorization: `${token}` } }
+        // console.log('sta api  ')
+        const response = await axiosInstance.get(
+          `stats${endpoint}`
         );
         return response.data;
       } catch (error) {

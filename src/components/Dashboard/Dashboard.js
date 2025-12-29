@@ -148,32 +148,32 @@ const Dashboard = () => {
     ];
 
     // Issues cards data
-    const issueCardsData = [
-        {
-            title: 'Total Reported Issues',
-            count: 128,
-            icon: 'exclamation-triangle',
-            variant: 'warning'
-        },
-        {
-            title: 'New Reported Issues',
-            count: 45,
-            icon: 'plus-circle',
-            variant: 'error'
-        },
-        {
-            title: 'Pending Issues',
-            count: 67,
-            icon: 'hourglass',
-            variant: 'warning'
-        },
-        {
-            title: 'Resolved Issues',
-            count: 16,
-            icon: 'check-double',
-            variant: 'success'
-        }
-    ];
+    // const issueCardsData = [
+    //     {
+    //         title: 'Total Reported Issues',
+    //         count: 128,
+    //         icon: 'exclamation-triangle',
+    //         variant: 'warning'
+    //     },
+    //     {
+    //         title: 'New Reported Issues',
+    //         count: 45,
+    //         icon: 'plus-circle',
+    //         variant: 'error'
+    //     },
+    //     {
+    //         title: 'Pending Issues',
+    //         count: 67,
+    //         icon: 'hourglass',
+    //         variant: 'warning'
+    //     },
+    //     {
+    //         title: 'Resolved Issues',
+    //         count: 16,
+    //         icon: 'check-double',
+    //         variant: 'success'
+    //     }
+    // ];
 
 
 
@@ -277,7 +277,7 @@ const Dashboard = () => {
                 </CardSection>
 
                 {/* Reported Issues Section */}
-                <CardSection title="Reported Issues" gridCols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                {/* <CardSection title="Reported Issues" gridCols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                     {issueCardsData.map((card, index) => (
                         <IssueCard
                             key={index}
@@ -288,7 +288,7 @@ const Dashboard = () => {
                             loading={false} // Since this is dummy data
                         />
                     ))}
-                </CardSection>
+                </CardSection> */}
 
                 {/* Top Users Section */}
                 <CardSection title="Top Users by Project Count" gridCols="grid-cols-1 md:grid-cols-3">

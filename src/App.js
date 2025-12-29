@@ -55,7 +55,7 @@ function App() {
             <Route path='/notification-management' element= {<NotificationManagement/>}/>
 
             <Route path='/my-account-management' element= {<MyAccount/>}/>
-            <Route path='/settings' element= {<ChangePassword/>}/>
+            {/* <Route path='/settings' element= {<ChangePassword/>}/> */}
 
 
           </Routes>

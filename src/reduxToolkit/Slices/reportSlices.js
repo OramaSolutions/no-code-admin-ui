@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import axiosInstance from '../../apis/axiosInstance.js';
 import { Url } from '../../config/config.js';
 import { isLoggedIn } from "../../utils"; 
 
@@ -12,11 +13,8 @@ const initialState={
 //==================================reports list================================================================================
 export const reportList=createAsyncThunk('report/reportList',async (payload,{ rejectWithValue })=>{   
     try{
-        const token = isLoggedIn("adminLogin");
-        console.log(token,"checking token") 
-        const response = await axios.get(`${Url}admin/helpList?page=${payload.page}&startDate=${payload.startdate}&endDate=${payload.enddate}&search=${payload.search}&timeframe=${payload.timeFrame}`,{
-            headers: { Authorization: `${token}` },
-        });      
+        
+        const response = await axiosInstance.get(`admin/helpList?page=${payload.page}&startDate=${payload.startdate}&endDate=${payload.enddate}&search=${payload.search}&timeframe=${payload.timeFrame}`);      
         if (response.status === 200) {
           return response.data;
         } else {
@@ -30,11 +28,8 @@ export const reportList=createAsyncThunk('report/reportList',async (payload,{ re
 //==================================report assign person list================================================================================
 export const assignpersonList=createAsyncThunk('report/assignpersonlist',async (payload,{ rejectWithValue })=>{   
   try{
-      const token = isLoggedIn("adminLogin");
-      console.log(token,"checking token") 
-      const response = await axios.get(`${Url}admin/helpUserDropDown`,{
-          headers: { Authorization: `${token}` },
-      });      
+     
+      const response = await axiosInstance.get(`admin/helpUserDropDown`);      
       if (response.status === 200) {
         return response.data;
       } else {
@@ -48,11 +43,8 @@ export const assignpersonList=createAsyncThunk('report/assignpersonlist',async (
 //============================================= add asign person api=======================================================================
 export const addAssignPerson=createAsyncThunk('report/addassignperson',async (payload,{ rejectWithValue })=>{   
   try{
-      const token = isLoggedIn("adminLogin");
-      console.log(token,"checking token") 
-      const response = await axios.post(`${Url}admin/addAssignUser`,payload,{
-          headers: { Authorization: `${token}` },
-      });      
+    
+      const response = await axiosInstance.post(`admin/addAssignUser`,payload);      
       if (response.status === 200) {
         return response.data;
       } else {
@@ -66,11 +58,8 @@ export const addAssignPerson=createAsyncThunk('report/addassignperson',async (pa
 //============================================= assign help to user api=======================================================================
 export const AssignHelp=createAsyncThunk('report/assignhelp',async (payload,{ rejectWithValue })=>{   
   try{
-      const token = isLoggedIn("adminLogin");
-      console.log(token,"checking token") 
-      const response = await axios.patch(`${Url}admin/assignHelp`,payload,{
-          headers: { Authorization: `${token}` },
-      });      
+      
+      const response = await axiosInstance.patch(`admin/assignHelp`,payload);      
       if (response.status === 200) {
         return response.data;
       } else {
@@ -84,11 +73,8 @@ export const AssignHelp=createAsyncThunk('report/assignhelp',async (payload,{ re
 //==================================Notes list================================================================================
 export const notesList=createAsyncThunk('report/notesList',async (payload,{ rejectWithValue })=>{   
   try{
-      const token = isLoggedIn("adminLogin");
-      console.log(token,"checking token") 
-      const response = await axios.get(`${Url}admin/noteList?helpId=${payload?.helpId}`,{
-          headers: { Authorization: `${token}` },
-      });      
+   
+      const response = await axiosInstance.get(`admin/noteList?helpId=${payload?.helpId}`);      
       if (response.status === 200) {
         return response.data;
       } else {
@@ -102,11 +88,8 @@ export const notesList=createAsyncThunk('report/notesList',async (payload,{ reje
 //==============================================add notes by admin====================================================================
 export const AddNotes=createAsyncThunk('report/addnotes',async (payload,{ rejectWithValue })=>{   
   try{
-      const token = isLoggedIn("adminLogin");
-      console.log(token,"checking token") 
-      const response = await axios.post(`${Url}admin/addNote`,payload,{
-          headers: { Authorization: `${token}` },
-      });      
+  
+      const response = await axiosInstance.post(`admin/addNote`,payload);      
       if (response.status === 200) {
         return response.data;
       } else {

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Url } from '../../config/config.js';
 import { isLoggedIn } from "../../utils";
+import axiosInstance from '../../apis/axiosInstance.js';
 
 //=====================================auth login api=============================================================================
 const initialState = {
@@ -13,7 +14,7 @@ const initialState = {
 export const adminLogin = createAsyncThunk('auth/adminLogin', async (payload, { rejectWithValue }) => {
   try {
     console.log("heloooo")
-    const response = await axios.post(`${Url}admin/adminLogin`, payload);
+    const response = await axiosInstance.post(`admin/adminLogin`, payload);
     if (response.status === 200) {
       return response.data;
     } else {
@@ -28,7 +29,7 @@ export const adminLogin = createAsyncThunk('auth/adminLogin', async (payload, { 
 export const sendEmail = createAsyncThunk('auth/sentEmail', async (payload, { rejectWithValue }) => {
   try {
     console.log("heloooo")
-    const response = await axios.post(`${Url}admin/sentEmail`, payload);
+    const response = await axiosInstance.post(`admin/sentEmail`, payload);
     if (response.status === 200) {
       return response.data;
     } else {
@@ -43,7 +44,7 @@ export const sendEmail = createAsyncThunk('auth/sentEmail', async (payload, { re
 export const SetPassword = createAsyncThunk('auth/setPassword', async (payload, { rejectWithValue }) => {
   try {
     console.log("heloooo")
-    const response = await axios.put(`${Url}admin/setPassword?token=${payload.token}`, { password: payload.password });
+    const response = await axiosInstance.put(`admin/setPassword?token=${payload.token}`, { password: payload.password });
     if (response.status === 200) {
       return response.data;
     } else {
@@ -58,10 +59,8 @@ export const SetPassword = createAsyncThunk('auth/setPassword', async (payload, 
 //================================================view profile api==========================
 export const viewProfile = createAsyncThunk('auth/viewprofile', async (undefined, { rejectWithValue }) => {
   try {
-    const token = isLoggedIn("adminLogin");
-    const response = await axios.get(`${Url}admin/viewProfile`, {
-      headers: { Authorization: `${token}` },
-    });
+   
+    const response = await axiosInstance.get(`admin/viewProfile`);
     if (response.status === 200) {
       return response.data;
     } else {
@@ -76,10 +75,8 @@ export const viewProfile = createAsyncThunk('auth/viewprofile', async (undefined
 //============================================change password=================================================
 export const changePassword = createAsyncThunk('auth/changePassword', async (payload, { rejectWithValue }) => {
   try {
-    const token = isLoggedIn("adminLogin");
-    const response = await axios.put(`${Url}admin/changePassword`, payload, {
-      headers: { Authorization: `${token}` },
-    }); if (response.status === 200) {
+   
+    const response = await axiosInstance.put(`admin/changePassword`, payload); if (response.status === 200) {
       return response.data;
     } else {
       return rejectWithValue(response.data);
@@ -92,10 +89,8 @@ export const changePassword = createAsyncThunk('auth/changePassword', async (pay
 //===========================================update profile===================================================
 export const updateProfile = createAsyncThunk('auth/updateprofile', async (payload, { rejectWithValue }) => {
   try {
-    const token = isLoggedIn("adminLogin");
-    const response = await axios.put(`${Url}admin/editProfile`, payload, {
-      headers: { Authorization: `${token}` },
-    });
+
+    const response = await axiosInstance.put(`admin/editProfile`, payload);
     if (response.status === 200) {
       return response.data;
     } else {
@@ -138,11 +133,10 @@ const authSlice = createSlice({
 //===============================================upload image or video=================================
 export const UploadDocumnet = createAsyncThunk('project/uploaddocumnet', async (payload, { rejectWithValue }) => {
   try {
-    const token = isLoggedIn("adminLogin");
-    const response = await axios.post(`${Url}user/uploadDocumnet`, payload, {
+    
+    const response = await axiosInstance.post(`user/uploadDocumnet`, payload, {
       headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`
+        "Content-Type": "multipart/form-data"
       }
     });
     console.log(response, "response................")

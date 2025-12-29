@@ -86,14 +86,19 @@ const Header = ({ onToggleSidebar, isSidebarOpen }) => {
                             onClick={toggleDropdown}
                             className="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
                         >
-                            <img
+                            {/* <img
                                 src={profilePic}
                                 alt="Profile"
                                 className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200"
                                 onError={(e) => {
                                     e.target.src = '/default-avatar.png'
                                 }}
-                            />
+                            /> */}
+                            <div className="w-8 h-8 rounded-full object-cover flex items-center justify-center bg-blue-200
+                             ring-2 ring-gray-200"
+                              >
+                                {userName[0]}
+                            </div>
                             <div className="hidden md:flex flex-col text-left">
                                 <span className="text-sm font-medium text-gray-900 truncate max-w-32">
                                     {userName}
@@ -111,11 +116,11 @@ const Header = ({ onToggleSidebar, isSidebarOpen }) => {
                             <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg border border-gray-200 shadow-xl z-50 overflow-hidden">
                                 <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
                                     <div className="flex items-center space-x-3">
-                                        <img
+                                        {/* <img
                                             src={profilePic}
                                             alt="Profile"
                                             className="w-10 h-10 rounded-full object-cover ring-2 ring-white"
-                                        />
+                                        /> */}
                                         <div className="flex-1 min-w-0">
                                             <p className="text-sm font-semibold text-gray-900 truncate">
                                                 {userName}
@@ -135,7 +140,7 @@ const Header = ({ onToggleSidebar, isSidebarOpen }) => {
                                         <span className="font-medium">My Account</span>
                                     </NavLink>
 
-                                    <NavLink
+                                    {/* <NavLink
                                         to="/settings"
                                         className={({ isActive }) =>
                                             `flex items-center px-4 py-2.5 text-sm transition-colors duration-150 ${isActive
@@ -147,7 +152,7 @@ const Header = ({ onToggleSidebar, isSidebarOpen }) => {
                                     >
                                         <FaCog className="w-4 h-4 text-gray-500 mr-3" />
                                         <span className="font-medium">Settings</span>
-                                    </NavLink>
+                                    </NavLink> */}
 
                                     <hr className="my-2 border-gray-200" />
 

@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 import { projectList } from '../../reduxToolkit/Slices/projectSlices'
 import UpdateModal from './UpdateModal'
 import ApprovedModal from './ApprovedModal'
-import RemarkModal from './RemarkModal'
+import RemarkModal from './AddRemarkModal'
 import Layout from '../NavSideWrapper'
 const initialState = {
     startdate: "",
@@ -39,6 +39,7 @@ function ProjectManagement({ userId }) {
     const [istate, setIstate] = useState(initialState);
     const { startdate, enddate, search, timeFrame, id, openModal, status, show, type, showRemark, projectName, model } = istate
     //===================================useeffect=====================================================
+    console.log('projectData', projectData)
     useEffect(() => {
         dispatch(projectList({
             userId: userId ? userId : "",
@@ -207,17 +208,17 @@ function ProjectManagement({ userId }) {
                                             <th>Project Id</th>
                                             <th>Project Name</th>
                                             <th>Model Name</th>
-                                            <th>Version Id</th>
+                                            {/* <th>Version Id</th> */}
                                             <th>Version No.</th>
                                             <th>Date of Creation</th>
-                                            <th>Status</th>
+                                            {/* <th>Status</th> */}
                                             <th>Date of Closure</th>
                                             <th>User Id</th>
                                             <th>User Name</th>
-                                            <th>Update Status</th>
+                                            {/* <th>Update Status</th>
                                             <th>Submission Status</th>
-                                            <th>Action</th>
-                                            <th>Add/View Remark</th>
+                                            <th>Action</th> */}
+                                            {/* <th>Add/View Remark</th> */}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -232,22 +233,22 @@ function ProjectManagement({ userId }) {
                                                             </td>
                                                             <td>{item?.name}</td>
                                                             <td>{item?.model}</td>
-                                                            <td>
+                                                            {/* <td>
                                                                 <a>V-141</a>
-                                                            </td>
+                                                            </td> */}
                                                             <td>
-                                                                <Link to="/project-details">{item?.versionNumber}</Link>
+                                                                <Link to="/project-details" state={item}>{item?.versionNumber}</Link>
                                                             </td>
                                                             <td>{handledate(item?.createdAt)}</td>
-                                                            <td>
+                                                            {/* <td>
                                                                 <span className={item?.projectStatus == "OPEN" ? "Green" : "Red"}>{item?.projectStatus}</span>
-                                                            </td>
+                                                            </td> */}
                                                             <td>{handledate(item?.updatedAt)}</td>
                                                             <td>
-                                                                <a >{item?.userData?.user_number}</a>
+                                                                {item?.userData?.user_number}
                                                             </td>
                                                             <td>{item?.userData?.name}</td>
-                                                            <td>
+                                                            {/* <td>
                                                                 <a
                                                                     className="Button"
                                                                     title="Update Status"
@@ -255,11 +256,11 @@ function ProjectManagement({ userId }) {
                                                                 >
                                                                     Update Status
                                                                 </a>
-                                                            </td>
-                                                            <td>
+                                                            </td> */}
+                                                            {/* <td>
                                                                 <span className="Red">Pending</span>
-                                                            </td>
-                                                            <td>
+                                                            </td> */}
+                                                            {/* <td>
                                                                 <div className="Actions">
                                                                     {item?.approvedStatus == "ACCEPT" ?
                                                                         <button title="Approve" className="Green" >
@@ -277,8 +278,8 @@ function ProjectManagement({ userId }) {
                                                                             </>
                                                                     }
                                                                 </div>
-                                                            </td>
-                                                            <td>
+                                                            </td> */}
+                                                            {/* <td>
                                                                 <div className="Actions">
                                                                     <button
                                                                         className="Green"
@@ -287,7 +288,7 @@ function ProjectManagement({ userId }) {
                                                                         Add/View Remark
                                                                     </button>
                                                                 </div>
-                                                            </td>
+                                                            </td> */}
                                                         </tr>
                                                     );
                                                 })

@@ -4,16 +4,32 @@ import { useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import { commomObj } from '../utils';
 import { toast } from 'react-toastify'
+import axios from "axios";
+import { Url } from '../config/config';
+
 
 function LogoutModal({ show, handleClose }) {
 const navigate=useNavigate();
 
-const logout = async () => {   
-    window.localStorage.removeItem("adminLogin")
-    window.localStorage.removeItem("adminimage")
-    toast.success(" Logout Successfully",commomObj);
-    navigate('/')
-}
+
+const logout = async () => {
+  try {
+    await axios.get(
+      `${Url}admin/logout`,
+      {
+        withCredentials: true, // ✅ IMPORTANT
+      }
+    );
+
+  
+    toast.success("Logout Successfully", commomObj);
+    navigate("/");
+  } catch (err) {
+    toast.error("Logout failed", commomObj);
+    console.error(err);
+  }
+};
+
     return (
         <div>
             < Modal
