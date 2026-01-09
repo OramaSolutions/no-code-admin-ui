@@ -5,6 +5,10 @@ import { getUrl } from "../../config/config";
 import { useDispatch } from "react-redux";
 import { getRemarkData } from "../../reduxToolkit/Slices/projectSlices";
 // import ViewRemarkModal from "./ViewRemarkModal";
+import LabelledStepDetails from "./steps/LabelledStepDetails";
+import AugmentationStepDetails from "./steps/AugmentationStepDetails";
+import DataSplitStepDetails from "./steps/DataSplitStepDetails";
+import HypertuneStepDetails from "./steps/HypertuneStepDetails";
 import RemarkModal from "./RemarkModal";
 
 import {
@@ -30,6 +34,9 @@ function ProjectDetails() {
     model: "",
     showRemark: false,
   });
+  const [datasetCount, setDatasetCount] = React.useState(0)
+  const [openStep, setOpenStep] = React.useState(null);
+
   const dispatch = useDispatch();
 
   if (!state) {
@@ -114,6 +121,10 @@ function ProjectDetails() {
       </div>
     );
   };
+  const toggleStep = (stepName, status) => {
+    if (status !== "completed") return;
+    setOpenStep(prev => (prev === stepName ? null : stepName));
+  };
 
   const remarkStep = step_status?.remark;
   const applicationStep = step_status?.application;
@@ -197,6 +208,7 @@ function ProjectDetails() {
                   <div className="space-y-3">
                     {Object.entries(step_status || {}).map(([stepName, step]) => {
                       const isSpecial = stepName === "remark" || stepName === "application";
+
                       return (
                         <div
                           key={stepName}
@@ -207,6 +219,7 @@ function ProjectDetails() {
                             : "border-gray-200"
                             }`}
                         >
+                          {/* HEADER */}
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-2">
                               <span className="font-medium text-gray-900 capitalize">
@@ -218,26 +231,104 @@ function ProjectDetails() {
                                 </span>
                               )}
                             </div>
-                            <StatusBadge status={step.status} />
+                            <div className="flex items-center gap-2">
+                              <StatusBadge status={step.status} />
+
+                              <button
+                                type="button"
+                                onClick={() => toggleStep(stepName, step.status)}
+                                className="p-1 rounded hover:bg-gray-100 transition disabled:opacity-40 disabled:cursor-not-allowed"
+                                disabled={step.status !== "completed"}
+                                aria-expanded={openStep === stepName}
+                              >
+                                <svg
+                                  className={`w-4 h-4 text-gray-500 transition-transform ${openStep === stepName ? "rotate-180" : ""
+                                    }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                              </button>
+                            </div>
                           </div>
 
+                          {/* COMMON STEP INFO */}
                           <div className="space-y-2 text-sm">
                             <div className="flex items-center justify-between">
                               <span className="text-gray-600">Last modified</span>
-                              <span className="font-medium text-gray-900">{formatDate(step.last_modified)}</span>
+                              <span className="font-medium text-gray-900">
+                                {formatDate(step.last_modified)}
+                              </span>
                             </div>
+
                             <div className="flex items-center justify-between">
                               <span className="text-gray-600">Validation errors</span>
-                              <span className={`font-medium ${step.validation_errors.length > 0 ? "text-red-600" : "text-emerald-600"
-                                }`}>
-                                {step.validation_errors.length > 0 ? step.validation_errors.length : "None"}
+                              <span
+                                className={`font-medium ${step.validation_errors.length > 0
+                                  ? "text-red-600"
+                                  : "text-emerald-600"
+                                  }`}
+                              >
+                                {step.validation_errors.length > 0
+                                  ? step.validation_errors.length
+                                  : "None"}
                               </span>
                             </div>
                           </div>
+
+                          {openStep === stepName && step.status === "completed" && (
+                            <div className="mt-3">
+                              {stepName === "labelled" && (
+                                <LabelledStepDetails
+                                  flaskUrl={flaskUrl}
+                                  username={userData.userName}
+                                  projectName={name}
+                                  version={versionNumber}
+                                  task={model}
+                                  setDatasetCount={setDatasetCount}
+                                />
+                              )}
+
+                              {stepName === "augmented" && (
+                                <AugmentationStepDetails
+                                  flaskUrl={flaskUrl}
+                                  username={userData.userName}
+                                  projectName={name}
+                                  version={versionNumber}
+                                  task={model}
+                                  datasetCount={datasetCount}
+                                />
+                              )}
+
+                              {stepName === "dataSplit" && (
+                                <DataSplitStepDetails
+                                  flaskUrl={flaskUrl}
+                                  username={userData.userName}
+                                  projectName={name}
+                                  version={versionNumber}
+                                  task={model}
+                                />
+                              )}
+
+                              {stepName === "HyperTune" && (
+                                <HypertuneStepDetails
+                                  flaskUrl={flaskUrl}
+                                  username={userData.userName}
+                                  projectName={name}
+                                  version={versionNumber}
+                                  task={model}
+                                />
+                              )}
+                            </div>
+                          )}
                         </div>
                       );
                     })}
                   </div>
+
                 </div>
 
                 {/* View Remarks Button */}
@@ -263,10 +354,15 @@ function ProjectDetails() {
                 )}
               </div>
 
-              {/* Current Status */}
+           
+            </div>
+
+            {/* Right Column - User & Summary */}
+            <div className="space-y-6">
+               {/* Current Status */}
               <div className="p-5 bg-white rounded-lg shadow-sm">
                 <h3 className="mb-4 text-lg font-semibold text-gray-900">Current Status</h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 ">
                   <div className="p-4 rounded-lg bg-gray-50">
                     <p className="mb-1 text-sm text-gray-600">Current Step</p>
                     <p className="font-medium text-gray-900 capitalize">
@@ -279,10 +375,6 @@ function ProjectDetails() {
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Right Column - User & Summary */}
-            <div className="space-y-6">
               {/* User Information */}
               <div className="p-5 bg-white rounded-lg shadow-sm">
                 <div className="flex items-center gap-3 mb-5">
@@ -379,29 +471,7 @@ function ProjectDetails() {
           </div>
         </div>
 
-        {/* Modals */}
-        {/* <ViewRemarkModal
-          show={showViewRemarkModal}
-          loading={loadingRemark}
-          remarkData={remarkData}
-          onClose={() => setShowViewRemarkModal(false)}
-          onAddReply={() => {
-            setShowViewRemarkModal(false);
-            setRemarkModalState({
-              id: _id,
-              projectName: name,
-              model: model,
-              showRemark: true,
-            });
-          }}
-        /> */}
-        {/* show={showViewRemarkModal}
-  onClose={() => setShowViewRemarkModal(false)}
-  remarkData={remarkData}
-  loading={loadingRemark}
-  istate={remarkModalState}
-  setIstate={setRemarkModalState}
-  userId={userData?.userId} */}
+
 
         <RemarkModal
           show={showViewRemarkModal}

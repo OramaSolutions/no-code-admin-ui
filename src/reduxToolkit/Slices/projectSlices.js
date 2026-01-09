@@ -57,9 +57,9 @@ export const addRemark = createAsyncThunk('project/addremark', async (payload, {
 // =====================================get user remark =====================================================
 export const getRemarkData = createAsyncThunk('project/getRemarkData', async ({ url, username, task, project, version }, { rejectWithValue }) => {
   try {
-   
+
     const response = await axios.get(`${url}remark`, {
-     
+
       params: {
         username,
         task,
@@ -91,6 +91,56 @@ export const approvalStatus = createAsyncThunk('project/approvalStatus', async (
   }
   catch (err) {
     return rejectWithValue(err.response.data);
+  }
+})
+
+//====================================return agumentation==========================================
+export const ReturnAgumentation = createAsyncThunk('project/Returnagumentation', async ({ payload, url }, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`${url}return_augmentations?username=${payload?.username}&task=${payload?.task}&project=${payload?.project}&version=${payload?.version}`
+    );
+    console.log(response, "response data of agumentation")
+    if (response.status === 200) {
+      return response;
+    } else {
+      return rejectWithValue(response.data);
+    }
+  }
+  catch (err) {
+    return rejectWithValue(err.response.data);
+  }
+})
+//================================return data splitt=====================================================
+export const ReturnDataSplit = createAsyncThunk('project/ReturnDataSplit', async ({ payload, url }, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`${url}return_split_ratio?username=${payload?.username}&task=${payload?.task}&project=${payload?.project}&version=${payload?.version}`
+    );
+    // console.log(response, "response.data")
+    if (response.status === 200) {
+      return response;
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+  catch (err) {
+    return rejectWithValue(err.response);
+  }
+})
+
+//================================return hyper tune======================================================
+export const ReturnHypertune = createAsyncThunk('project/ReturnHypertune', async ({ payload, url }, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`${url}return_tune_hyperparameter?username=${payload?.username}&task=${payload?.task}&project=${payload?.project}&version=${payload?.version}`
+    );
+    // console.log(response, "response.data")
+    if (response.status === 200) {
+      return response;
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+  catch (err) {
+    return rejectWithValue(err.response);
   }
 })
 //=======================================reducer==============================================================

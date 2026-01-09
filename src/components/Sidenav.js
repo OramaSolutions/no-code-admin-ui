@@ -53,12 +53,12 @@ const Sidenav = ({ isOpen, onClose }) => {
         //     icon: FaExclamationTriangle,
         //     color: 'text-orange-600'
         // },
-        // {
-        //     path: '/notification-management',
-        //     name: 'Notification Management',
-        //     icon: FaBell,
-        //     color: 'text-indigo-600'
-        // },
+        {
+            path: '/notification-management',
+            name: 'Notification Management',
+            icon: FaBell,
+            color: 'text-indigo-600'
+        },
         {
             path: '/my-account-management',
             name: 'My Account',
@@ -165,12 +165,7 @@ const Sidenav = ({ isOpen, onClose }) => {
                     </li>
                 </nav>
 
-                {/* Footer/Version Info */}
-                {/* <div className="p-4 border-t border-gray-200 bg-gray-50">
-                    <div className="text-center">
-                        <p className="text-xs text-gray-500">Admin Portal v2.0</p>
-                    </div>
-                </div> */}
+                
             </aside>
 
             <LogoutModal

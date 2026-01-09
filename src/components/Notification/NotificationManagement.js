@@ -6,7 +6,7 @@ import { Commonpagination } from '../../commonfiles/Pagination'
 import { handledate, commomObj } from '../../utils'
 import { toast } from 'react-toastify';
 import { Deletemodal } from '../../commonfiles/DeleteModal'
-import { deleteNotification, notificationList, resendNotification } from '../../reduxToolkit/Slices/notificationSlices'
+import { deleteNotification, adminNotificationList } from '../../reduxToolkit/Slices/notificationSlices'
 import AddNotification from './AddNotification'
 import Layout from '../NavSideWrapper'
 const initialState = {
@@ -33,81 +33,88 @@ function NotificationManagement() {
 
     //===================================useeffect=====================================================
     useEffect(() => {
-        dispatch(notificationList({
-            page: "",
-            startdate: "",
-            enddate: "",
-            search: "",
-            timeFrame: "",
+        dispatch(
+            adminNotificationList({
+                page: 1,
+                limit: 10,
+            })
+        );
+    }, [dispatch]);
 
-        }))
-    }, [])
     //..............................pagination.........................................................
     const Pagehandler = (pageNumber) => {
-        let ser = pageNumber * 10;
-        setSerialNo(ser);
         setCurrentpage(pageNumber);
-        const data = {
-            page: pageNumber,
-            startdate: "",
-            enddate: "",
-            search: "",
-            timeFrame: ""
-        }
-        dispatch(notificationList(data));
+        setSerialNo(pageNumber * 10);
 
+        dispatch(
+            adminNotificationList({
+                page: pageNumber,
+                limit: 10,
+                search,
+            })
+        );
     };
+
     //=============================search handler===================================================
     const addinputhandler = (e) => {
         const { name, value } = e.target
         setIstate({ ...istate, [name]: value })
     }
-    const applyhandler = async () => {
-        if (startdate.trim() == '' && enddate.trim() == '' && search.trim() == '' && timeFrame.trim() == '') {
-            toast.error("Please select the value", commomObj);
-        }
-        if (startdate.trim() == '' && enddate.trim() != '' && !search && !timeFrame) {
-            toast.error("Please select the start date", commomObj);
-        }
-        if (startdate.trim() != '' && enddate.trim() == '' && !search && !timeFrame) {
-            toast.error("Please select the end date", commomObj);
-        }
-        if (startdate && enddate || search || timeFrame) {
-            const newstartdate = new Date(startdate)
-            const newenddate = new Date(enddate)
-            if (newstartdate.getTime() >= newenddate.getTime()) {
-                toast.error("End date must be greater than start date", commomObj);
-            } else {
-                setDisable(true)
-                const data = {
-                    page: "",
-                    startdate: startdate,
-                    enddate: enddate,
-                    search: search.trim(),
-                    timeFrame,
-                }
-                const res = await dispatch(notificationList(data))
-                if (res?.payload?.code == 200) {
-                    setDisable(false)
-                }
-                else {
-                    setDisable(false)
+    
+    // const applyhandler = async () => {
+    //     if (startdate.trim() == '' && enddate.trim() == '' && search.trim() == '' && timeFrame.trim() == '') {
+    //         toast.error("Please select the value", commomObj);
+    //     }
+    //     if (startdate.trim() == '' && enddate.trim() != '' && !search && !timeFrame) {
+    //         toast.error("Please select the start date", commomObj);
+    //     }
+    //     if (startdate.trim() != '' && enddate.trim() == '' && !search && !timeFrame) {
+    //         toast.error("Please select the end date", commomObj);
+    //     }
+    //     if (startdate && enddate || search || timeFrame) {
+    //         const newstartdate = new Date(startdate)
+    //         const newenddate = new Date(enddate)
+    //         if (newstartdate.getTime() >= newenddate.getTime()) {
+    //             toast.error("End date must be greater than start date", commomObj);
+    //         } else {
+    //             setDisable(true)
+    //             const data = {
+    //                 page: "",
+    //                 startdate: startdate,
+    //                 enddate: enddate,
+    //                 search: search.trim(),
+    //                 timeFrame,
+    //             }
+    //             const res = await dispatch(notificationList(data))
+    //             if (res?.payload?.code == 200) {
+    //                 setDisable(false)
+    //             }
+    //             else {
+    //                 setDisable(false)
 
-                }
-            }
+    //             }
+    //         }
 
-        }
-    }
+    //     }
+    // }
 
     //==========================================refreshHandler============================================
+    
+    const applyhandler = () => {
+        dispatch(
+            adminNotificationList({
+                page: 1,
+                limit: 10,
+                search: search.trim(),
+            })
+        );
+    };
+
     const refreshandler = () => {
         setIstate({ ...istate, startdate: "", enddate: "", search: "", timeFrame: "", })
-        dispatch(notificationList({
-            page: currentpage,
-            startdate: "",
-            enddate: "",
-            search: "",
-            timeFrame: "",
+        dispatch(adminNotificationList({
+            page: 1,
+            limit: 10,
         }))
     }
     //======================================open modal============================================
@@ -130,20 +137,18 @@ function NotificationManagement() {
             if (res?.payload?.code === 200) {
                 setIstate({ ...istate, modal: false, id: '', isloading: false })
                 toast.success(" Deleted Successfully", commomObj);
-                let res = await dispatch(notificationList({
-                    page: currentpage,
-                    startdate: "",
-                    enddate: "",
-                    search: "",
-                    timeFrame: "",
+                let res = await dispatch(adminNotificationList({
+                    page: 1,
+                    limit: 10,
                 }))
                 if (res?.payload?.result?.[0]?.paginationData?.length === 0 && currentpage > 1) {
                     const lastPage = currentpage - 1;
                     setCurrentpage(lastPage);
                     setSerialNo((lastPage) * 10);
-                    dispatch(notificationList({
-                        page: lastPage, startdate: "", enddate: "", search: "", timeFrame: "",
-                    }));
+                    dispatch(adminNotificationList({
+                        page: 1,
+                        limit: 10,
+                    }))
                 }
             } else {
                 toast.error(res?.payload?.message, commomObj);
@@ -154,29 +159,29 @@ function NotificationManagement() {
         }
     }
     //================================resend handler=========================================================
-    const resendHandler = async (id) => {
-        try {
-            setIstate({ ...istate, isloading: true })
-            const res = await dispatch(resendNotification({ id: id }))
-            if (res?.payload?.code === 200) {
-                toast.success(res?.payload?.message, commomObj);
-                dispatch(notificationList({
-                    page: currentpage,
-                    startdate: "",
-                    enddate: "",
-                    search: "",
-                    timeFrame: "",
-                }))
-                setIstate({ ...istate, isloading: false })
-            } else {
-                toast.error(res?.payload?.message, commomObj);
-                setIstate({ ...istate, isloading: true })
-            }
-        } catch (err) {
-            console.log(err, "errr")
-            setIstate({ ...istate, isloading: true })
-        }
-    }
+    // const resendHandler = async (id) => {
+    //     try {
+    //         setIstate({ ...istate, isloading: true })
+    //         const res = await dispatch(resendNotification({ id: id }))
+    //         if (res?.payload?.code === 200) {
+    //             toast.success(res?.payload?.message, commomObj);
+    //             dispatch(notificationList({
+    //                 page: currentpage,
+    //                 startdate: "",
+    //                 enddate: "",
+    //                 search: "",
+    //                 timeFrame: "",
+    //             }))
+    //             setIstate({ ...istate, isloading: false })
+    //         } else {
+    //             toast.error(res?.payload?.message, commomObj);
+    //             setIstate({ ...istate, isloading: true })
+    //         }
+    //     } catch (err) {
+    //         console.log(err, "errr")
+    //         setIstate({ ...istate, isloading: true })
+    //     }
+    // }
     return (
         <div>
             <Layout>
@@ -205,38 +210,8 @@ function NotificationManagement() {
                                         disabled={startdate || enddate || timeFrame}
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <label>From Date</label>
-                                    <input type="date" className="form-control"
-                                        name='startdate'
-                                        value={startdate}
-                                        onChange={addinputhandler}
-                                        disabled={search || timeFrame}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>To Date</label>
-                                    <input type="date" className="form-control"
-                                        name='enddate'
-                                        value={enddate}
-                                        onChange={addinputhandler}
-                                        min={startdate}
-                                        disabled={search || timeFrame}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Select From</label>
-                                    <select className="form-control"
-                                        name='timeFrame'
-                                        value={timeFrame}
-                                        onChange={addinputhandler}
-                                        disabled={startdate || enddate || search}>
-                                        <option value="">Select </option>
-                                        <option value="Today">Today</option>
-                                        <option value="Week">This Week</option>
-                                        <option value="Month">This Month</option>
-                                    </select>
-                                </div>
+
+
                                 <div className="form-group">
                                     <label>&nbsp;</label>
                                     <button className="Button mr-2" disabled={disable} onClick={applyhandler}>Apply</button>
@@ -255,68 +230,80 @@ function NotificationManagement() {
                                                 <th>Title</th>
                                                 <th>Message</th>
                                                 <th>Sent On</th>
-                                                <th>User Type</th>
-                                                <th>No Of User</th>
-                                                <th>Action</th>
+                                                <th>Project</th>
+                                                <th>Status</th>
+                                                <th>User</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {!loader ?
-                                                notificationData?.result?.[0]?.paginationData?.length > 0 ? (
-                                                    notificationData?.result?.[0]?.paginationData?.map((item, i) => {
+                                            {!loader ? (
+                                                notificationData?.data?.length > 0 ? (
+                                                    notificationData.data.map((item, i) => {
+                                                        const userLabel = item.recipientId
+                                                            ? `${item.recipientId.name} (${item.recipientId.email})`
+                                                            : "All Users";
+
+                                                        const projectLabel = item.projectId
+                                                            ? item.projectName || "Unnamed Project"
+                                                            : "General";
+
                                                         return (
-                                                            <tr>
+                                                            <tr key={item._id}>
                                                                 <td>{i + serialNo - 10 + 1}</td>
-                                                                <td>{item?.title}</td>
+
+                                                                <td>{item.title}</td>
+
                                                                 <td>
-                                                                    <p style={{ maxWidth: "225px", whiteSpace: "normal" }} dangerouslySetInnerHTML={{ __html: item?.content }}></p>
+                                                                    <div
+                                                                        style={{ maxWidth: "250px", whiteSpace: "normal" }}
+                                                                        dangerouslySetInnerHTML={{ __html: item.message }}
+                                                                    />
                                                                 </td>
-                                                                <td>{handledate(item?.createdAt)}</td>
-                                                                <td>{item?.userType}</td>
-                                                                <td>{item?.users?.length}</td>
+
+                                                                <td>{handledate(item.createdAt)}</td>
+
+                                                                <td>{projectLabel}</td>
+
                                                                 <td>
-                                                                    <div className="Actions">
-                                                                        <a
-                                                                            title="Edit"
-                                                                            className="Green"
-                                                                            onClick={() => openHandler('Edit', item, item?._id)}
-                                                                        >
-                                                                            <i className="fa fa-pencil" aria-hidden="true" />
-                                                                        </a>
-                                                                        <a
-                                                                            title="Delete"
-                                                                            className="Red"
-                                                                            onClick={() => DeleteShowhandler(item?._id)}
-                                                                        >
-                                                                            <i className="fa fa-trash" />
-                                                                        </a>
-                                                                        <button title="Resend" onClick={() => resendHandler(item?._id)}>Resend</button>
-                                                                    </div>
+                                                                    {item.isRead ? (
+                                                                        <span className="badge badge-success">Read</span>
+                                                                    ) : (
+                                                                        <span className="badge badge-warning">Unread</span>
+                                                                    )}
+                                                                </td>
+
+                                                                <td>
+                                                                    <small>{userLabel}</small>
                                                                 </td>
                                                             </tr>
                                                         );
                                                     })
                                                 ) : (
                                                     <tr>
-                                                        <td colSpan="12">
+                                                        <td colSpan="7">
                                                             <p>No Data found.</p>
                                                         </td>
                                                     </tr>
-                                                ) : <Loader></Loader>}
+                                                )
+                                            ) : (
+                                                <Loader />
+                                            )}
                                         </tbody>
+
                                     </table>
                                 </div>
                                 <div className="pagination">
                                     <ul>
-                                        {notificationData?.result?.[0]?.totalCount?.[0]?.count > 0 && (
+                                        {notificationData?.pagination?.total > 0 && (
                                             <Commonpagination
                                                 ActivePage={currentpage}
                                                 ItemsCountPerPage={10}
-                                                TotalItemsCount={notificationData?.result?.[0]?.totalCount?.[0]?.count}
+                                                TotalItemsCount={notificationData.pagination.total}
                                                 PageRangeDisplayed={5}
                                                 Onchange={Pagehandler}
                                             />
                                         )}
+
                                     </ul>
                                 </div>
                             </div>

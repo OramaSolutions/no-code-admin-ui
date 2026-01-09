@@ -1,213 +1,245 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Modal from 'react-bootstrap/Modal';
-import { commomObj } from '../../utils';
-import { toast } from 'react-toastify';
-import { addStatus, projectList } from '../../reduxToolkit/Slices/projectSlices';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { ClassicEditor } from 'ckeditor5';
-import { addNotification, editNotification, notificationList, searchUserList } from '../../reduxToolkit/Slices/notificationSlices';
-import Loader from '../../commonfiles/Loader';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
+import { commomObj } from "../../utils";
+import { addNotification, searchUserList } from "../../reduxToolkit/Slices/notificationSlices";
+import Loader from "../../commonfiles/Loader";
+
 const initialState = {
     title: "",
-    content: "",
-    userType: "",
-    userId: "",
+    message: "",
+    recipientId: "",
     searchUser: "",
-    sendStatus: "SEND",
+    projectId: "",
+    projectName: "",
     errors: {},
+    type: "info",
     loading: false,
-    initial: false,
-    flag: false
-}
+};
 
 function AddNotification({ istate, setIstate }) {
     const dispatch = useDispatch();
-    const { searchuserData, loader } = useSelector((state) => state.notification)
-    const { openModal, type, id, dataa } = istate;
-    const [updateStatus, setUpdateStatus] = useState(initialState)
-    const { title, content, userType, userId, searchUser, sendStatus, errors, loading, initial, flag } = updateStatus
-    console.log(searchuserData, "searchuserData")
+    const { searchuserData, loader } = useSelector((state) => state.notification);
+    const { openModal, dataa } = istate;
 
+    const [state, setState] = useState(initialState);
+    const {
+        title,
+        message,
+        recipientId,
+        searchUser,
+        projectId,
+        projectName,
+        errors,
+        type,
+        loading,
+    } = state;
+
+
+
+    // Pre-fill project if opened from project context
     useEffect(() => {
-        if (dataa && Object.keys(dataa).length > 0) {
-            console.log(dataa, "data")
-            setUpdateStatus((prev) => ({ ...prev, title: dataa?.title, content: dataa?.content, userType: dataa?.userType, userId: dataa?.userId, loading: false, initial: true, }))
+        if (dataa?.projectId) {
+            setState((prev) => ({
+                ...prev,
+                recipientId: dataa.recipientId,
+                projectId: dataa.projectId,
+                projectName: dataa.projectName,
+                searchUser: dataa.userName
+            }));
         }
-    }, [dataa])
+    }, [dataa]);
+
+    // Debounced user search
     useEffect(() => {
-        const delay = setTimeout(() => {
+        if (!searchUser) return;
+
+        const timer = setTimeout(() => {
             dispatch(searchUserList({ searchUser }));
-        }, 1000);
-        return () => clearTimeout(delay);
-    }, [searchUser])
+        }, 500);
 
-    const handleValidation = () => {
-        let formIsValid = true;
-        let error = {}
-        if (!title?.trim()) {
-            formIsValid = false
-            error.titleError = "*Required to fill"
-        }
-        if (!content?.trim()) {
-            formIsValid = false
-            error.contentError = "*Required to fill"
-        }
-        if (!userType?.trim()) {
-            formIsValid = false
-            error.userTypeError = "*Required to fill"
-        }
-        if (userType == "Single" && !userId?.trim()) {
-            formIsValid = false
-            error.userIdError = "*Required to fill"
-        }
-        setUpdateStatus({ ...updateStatus, errors: error })
-        return formIsValid
-    }
+        return () => clearTimeout(timer);
+    }, [searchUser, dispatch]);
 
+    // Validation
+    const validate = () => {
+        const errs = {};
+        if (!title.trim()) errs.title = "Title is required";
+        if (!message.trim()) errs.message = "Message is required";
+        // if (!recipientId) errs.recipientId = "Please select a user";
+        // if (!projectId) errs.projectId = "Project is missing";
+
+        setState((prev) => ({ ...prev, errors: errs }));
+        return Object.keys(errs).length === 0;
+    };
+
+    // Submit
     const saveHandler = async () => {
-        let formValid = handleValidation()
-        if (formValid) {
-            try {
-                setUpdateStatus({ ...updateStatus, loading: true })
-                const data = { title, content, userType, userId, searchUser, sendStatus: id ? "" : "SEND", id: id ? id : "" }
-                const res = id ? await dispatch(editNotification(data)) : await dispatch(addNotification(data))
-                if (res?.payload?.code === 200) {
-                    toast.success(res?.payload?.message, commomObj);
-                    closeHandler()
-                    dispatch(notificationList({ page: "", startdate: "", enddate: "", search: "", timeFrame: "", }))
-                    setUpdateStatus(initialState)
-                } else {
-                    toast.error("Oops!something went wrong", commomObj);
-                    setUpdateStatus({ ...updateStatus, loading: false, title: "", content: "", userType: "", userId: "", errors: {} })
-                }
-            } catch (err) {
-                console.log(err, "errrrrrrr")
-                setUpdateStatus({ ...updateStatus, loading: false, title: "", content: "", userType: "", userId: "", errors: {} })
-            }
-        }
+        if (!validate()) return;
 
-    }
+        setState((prev) => ({ ...prev, loading: true }));
+
+        const res = await dispatch(
+            addNotification({
+                recipientId: recipientId || null,
+                projectId: projectId || null,
+                projectName: projectName || null,
+                title,
+                message,
+                type,
+            })
+        );
+
+        if (res?.payload?.notification) {
+            toast.success("Notification sent successfully", commomObj);
+            closeHandler();
+        } else {
+            toast.error("Failed to send notification", commomObj);
+            setState((prev) => ({ ...prev, loading: false }));
+        }
+    };
 
     const closeHandler = () => {
-        setIstate({ ...istate, openModal: false, type: "", id: "", dataa: {} })
-        setUpdateStatus(initialState)
-    }
-    const inputHandler = (e) => {
-        const { name, value } = e.target
-        setUpdateStatus({ ...updateStatus, [name]: value, errors: {}, flag: false })
-    }
- const ckeditorhandler = (content) => {
-    setUpdateStatus({ ...updateStatus, content, errors: {} });
-}
-    const handleSelect = (name, id) => {
-        setUpdateStatus({ ...updateStatus, searchUser: name, userId: id, flag: true })
-    }
+        setIstate({ ...istate, openModal: false, dataa: {} });
+        setState(initialState);
+    };
+
+    const handleSelectUser = (user) => {
+        setState((prev) => ({
+            ...prev,
+            recipientId: user._id,
+            searchUser: user.userName,
+            errors: {},
+        }));
+    };
 
     return (
-        <>
-            < Modal
-                className="ModalBox"
-                show={openModal}
-                onHide={closeHandler}
-            >
-                <div className="Category">
-                    <Link className="CloseModal" onClick={closeHandler}>
-                        ×
-                    </Link>
-                    <h3>{type} Notification</h3>
-                    <div className="form-group">
-                        <label>Notification Title</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter Title of Notification"
-                            name='title'
-                            value={title}
-                            onChange={inputHandler}
-                        />
-                        <span style={{ color: 'red' }} >{errors?.titleError}</span>
-                    </div>
-                    <div className="form-group">
-                        <label>Notification Content</label>
-<ReactQuill
-    theme="snow"
-    value={content}
-    onChange={ckeditorhandler}
-/>
-                        <span style={{ color: 'red' }} >{errors?.contentError}</span>
-                    </div>
-                    <div className="form-group">
-                        <label>Select User Type</label>
-                        <select
-                            className="form-control"
-                            name='userType'
-                            value={userType}
-                            onChange={inputHandler}
-                        >
-                            <option value="">--Select--</option>
-                            <option value="All">All Users</option>
-                            <option value="Single">Single User</option>
-                        </select>
-                        <span style={{ color: 'red' }} >{errors?.userTypeError}</span>
-                    </div>
-                    {userType == "Single" && <div className="form-group">
-                        <label>Search Users</label>
-                        <input
-                            type="text"
-                            placeholder="Enter User Id"
-                            className="form-control"
-                            name='searchUser'
-                            value={searchUser}
-                            onChange={inputHandler}
-                        />
-                        <span style={{ color: 'red' }} >{errors?.userIdError}</span>
-                        {!flag ? <ul>
-                            {!loader ?
-                                searchuserData?.result?.length > 0 ?
-                                    searchuserData?.result?.map((item, index) => (
-                                        <li
-                                            key={index}
-                                            onClick={() => handleSelect(item.userName, item?._id)}
-                                        >
-                                            {item.userName}
-                                        </li>
-                                    )) : "No User found" : <Loader item={'200px'} />
-                            }
-                        </ul> : ""}
-                    </div>}
-                    <div className="notification-btn">
-                        <a
-                            className="Button active  mr-2"
-                            style={{ pointerEvents: loading ? 'none' : '' }}
-                            onClick={saveHandler}
-                        >
-                            {type == "Edit" ? "Save Changes" : "Send Notification"}
-                        </a>
-                        <a className="Button" onClick={closeHandler}>
-                            Cancel
-                        </a>
-                    </div>
+        <Modal className="ModalBox" show={openModal} onHide={closeHandler}>
+            <div className="Category">
+                <Link className="CloseModal" onClick={closeHandler}>
+                    ×
+                </Link>
+
+                <h3>Send Notification</h3>
+
+                {/* Title */}
+                <div className="form-group">
+                    <label>Notification Title</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter title"
+                        value={title}
+                        onChange={(e) =>
+                            setState((prev) => ({
+                                ...prev,
+                                title: e.target.value,
+                                errors: {},
+                            }))
+                        }
+                    />
+                    {errors.title && <span className="text-danger">{errors.title}</span>}
+                </div>
+                {/* Notification Type */}
+                <div className="form-group">
+                    <label>Notification Type</label>
+                    <select
+                        className="form-control"
+                        value={type}
+                        onChange={(e) =>
+                            setState((prev) => ({
+                                ...prev,
+                                type: e.target.value,
+                            }))
+                        }
+                    >
+                        <option value="info">Info</option>
+                        <option value="success">Success</option>
+                        <option value="warning">Warning</option>
+                        <option value="error">Error</option>
+                    </select>
                 </div>
 
 
+                {/* Message */}
+                <div className="form-group">
+                    <label>Notification Message</label>
+                    <ReactQuill
+                        theme="snow"
+                        value={message}
+                        onChange={(val) =>
+                            setState((prev) => ({
+                                ...prev,
+                                message: val,
+                                errors: {},
+                            }))
+                        }
+                    />
+                    {errors.message && <span className="text-danger">{errors.message}</span>}
+                </div>
 
-            </Modal>
+                {/* User search */}
+                <div className="form-group">
+                    <label>Search User</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search by username"
+                        value={searchUser}
+                        onChange={(e) =>
+                            setState((prev) => ({
+                                ...prev,
+                                searchUser: e.target.value,
+                            }))
+                        }
+                    />
+                    {errors.recipientId && (
+                        <span className="text-danger">{errors.recipientId}</span>
+                    )}
 
-        </>
-    )
+                    {searchUser && (
+                        <ul className="user-search-list">
+                            {!loader ? (
+                                searchuserData?.result?.length > 0 ? (
+                                    searchuserData.result.map((user) => (
+                                        <li
+                                            key={user._id}
+                                            onClick={() => handleSelectUser(user)}
+                                        >
+                                            {user.userName}
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li>No users found</li>
+                                )
+                            ) : (
+                                <Loader item="150px" />
+                            )}
+                        </ul>
+                    )}
+                </div>
+
+                {/* Buttons */}
+                <div className="notification-btn">
+                    <button
+                        className="Button active mr-2"
+                        disabled={loading}
+                        onClick={saveHandler}
+                    >
+                        {loading ? "Sending..." : "Send Notification"}
+                    </button>
+                    <button className="Button" onClick={closeHandler}>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </Modal>
+    );
 }
 
-export default AddNotification
-
-//   <CKEditor
-//                             className="form-control"
-//                             editor={ClassicEditor}
-//                             data={content}
-//                             key={initial}
-//                             onChange={(event, editor) => ckeditorhandler(event, editor)}
-//                         >
-//                         </CKEditor>
+export default AddNotification;
