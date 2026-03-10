@@ -273,7 +273,7 @@ const UserManagement = () => {
                                                         <label className="Switch">
                                                             <input
                                                                 type="checkbox"
-                                                                checked={item.userStatus === 'ACTIVE'}
+                                                                checked={item.userStatus !== 'ACTIVE'}
                                                                 onClick={() => statushowhandler(item._id, item.userStatus)}
                                                             />
                                                             <span className="slider" />

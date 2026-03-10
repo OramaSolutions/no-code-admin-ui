@@ -39,6 +39,7 @@ function ProjectManagement({ userId }) {
 
     const [disable, setDisable] = useState(false)
     const [openDropdown, setOpenDropdown] = useState(null);
+    const isEmbedded = Boolean(userId);
     const { projectData, loader } = useSelector((state) => state.project)
     const [currentpage, setCurrentpage] = useState(1);   // for pagination
     const [serialNo, setSerialNo] = useState(10);
@@ -144,13 +145,10 @@ function ProjectManagement({ userId }) {
     }, []);
 
 
-    return (
-        <div>
-            <Layout>
-                <div>
-                    <div className={userId ? "" : "WrapperBox"}>
+    const content = (
+        <div className={isEmbedded ? "" : "WrapperBox"}>
                         <div className="Small-Wrapper">
-                            {userId ? "" : <div className="TitleBox">
+                            {isEmbedded ? "" : <div className="TitleBox">
                                 <h4 className="Title">Project Management</h4>
                                 {/* <a href="#" title="Export" className="Button">
                                     Export
@@ -347,9 +345,19 @@ function ProjectManagement({ userId }) {
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                </div>
-                {/* <UpdateModal
+        </div>
+    );
+
+    return (
+        <>
+            {isEmbedded ? (
+                content
+            ) : (
+                <Layout>
+                    <div>{content}</div>
+                </Layout>
+            )}
+            {/* <UpdateModal
                     istate={istate}
                     setIstate={setIstate}
                     userId={userId}
@@ -368,8 +376,7 @@ function ProjectManagement({ userId }) {
                     istate={istate}
                     setIstate={setIstate}
                 />
-            </Layout>
-        </div>
+        </>
     )
 }
 
