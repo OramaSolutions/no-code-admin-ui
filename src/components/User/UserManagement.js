@@ -68,78 +68,37 @@ const UserManagement = () => {
 
     //====================================================open modal===================================
     const showHandler = () => {
-        setIstate({ ...istate, show: true });
+       
+        setIstate(prev => ({ ...prev, show: true }));
     };
     const handlclose = () => {
-        setIstate({ ...istate, show: false });
+        setIstate(prev => ({ ...prev, show: false }));
     };
 
-    //=============================search handler=========================================================
-    const addinputhandler = (e) => {
-        const { name, value } = e.target;
-        setIstate({ ...istate, [name]: value });
-    };
-
-    const applyhandler = async () => {
-        if (startdate.trim() == '' && enddate.trim() == '' && search.trim() == '' && timeFrame.trim() == '') {
-            toast.error("Please select the value", commomObj);
-        }
-        if (startdate.trim() == '' && enddate.trim() != '' && !search && !timeFrame) {
-            toast.error("Please select the start date", commomObj);
-        }
-        if (startdate.trim() != '' && enddate.trim() == '' && !search && !timeFrame) {
-            toast.error("Please select the end date", commomObj);
-        }
-        if (startdate && enddate || search || timeFrame) {
-            const newstartdate = new Date(startdate);
-            const newenddate = new Date(enddate);
-            if (newstartdate.getTime() >= newenddate.getTime()) {
-                toast.error("End date must be greater than start date", commomObj);
-            } else {
-                setDisable(true);
-                const data = {
-                    page: "",
-                    startdate: startdate,
-                    enddate: enddate,
-                    search: search.trim(),
-                    timeFrame,
-                };
-                const res = await dispatch(userList(data));
-                setDisable(false);
-            }
-        }
-    };
-
-    //==========================================refreshHandler===============================================
-    const refreshandler = () => {
-        setIstate({ ...istate, startdate: "", enddate: "", search: "", timeFrame: "", });
-        dispatch(userList({
-            page: currentpage,
-            startdate: "",
-            enddate: "",
-            search: "",
-            timeFrame: "",
-        }));
-    };
 
     //=====================================delete handler==================================================
-    const handleClose = () => {
-        setIstate({ ...istate, modal: false, _id: '', permanent: false });
-    };
+const handleClose = () => {
+    setIstate(prev => ({
+        ...prev,
+        modal: false,
+        _id: '',
+        permanent: false
+    }));
+};
 
     // Open modal for deactivate or permanent delete
     const DeleteShowhandler = (id, permanent = false) => {
-        setIstate({ ...istate, modal: true, _id: id, permanent });
+        setIstate(prev => ({ ...prev, modal: true, _id: id, permanent }));
     };
 
     // Soft delete (deactivate)
     const handleDelete = async () => {
-        setIstate({ ...istate, isloading: true });
+        setIstate(prev => ({ ...prev, isloading: true }));
         try {
             const data = { id: _id, status: 'DELETED' };
             const res = await dispatch(StatusUser(data));
             if (res?.payload?.code === 200) {
-                setIstate({ ...istate, modal: false, _id: '' });
+                setIstate(prev => ({ ...prev, modal: false, _id: '' }));
                 toast.success("User deleted successfully", commomObj);
                 await dispatch(userList({
                     page: currentpage,
@@ -154,18 +113,28 @@ const UserManagement = () => {
         } catch (err) {
             console.log('handleDelete error:', err);
         } finally {
-            setIstate({ ...istate, isloading: false });
+            setIstate(prev => ({ ...prev, isloading: false }));
         }
     };
 
     // Permanent delete
     const handlePermanentDelete = async () => {
-        setIstate({ ...istate, isloading: true });
+        setIstate(prev => ({ ...prev, isloading: true }));
+
         try {
-            const res = await dispatch(DeleteUser({ id: _id }));
+            const res = await dispatch(DeleteUser(_id));
+
             if (res?.payload?.code === 200) {
                 toast.success("User permanently deleted successfully", commomObj);
-                setIstate({ ...istate, modal: false, _id: '', permanent: false });
+
+                // close modal properly
+                setIstate(prev => ({
+                    ...prev,
+                    modal: false,
+                    _id: '',
+                    permanent: false,
+                }));
+
                 await dispatch(userList({
                     page: currentpage,
                     startdate: "",
@@ -179,24 +148,24 @@ const UserManagement = () => {
         } catch (err) {
             console.log("handlePermanentDelete error:", err);
         } finally {
-            setIstate({ ...istate, isloading: false });
+            setIstate(prev => ({ ...prev, isloading: false }));
         }
     };
 
     //................................................status handler......................................
     const statushowhandler = (id, statuss) => {
-        setIstate({ ...istate, Status: true, statusid: id, isAct: statuss });
+        setIstate(prev => ({ ...prev, Status: true, statusid: id, isAct: statuss }));
     };
     const statusclose = () => {
-        setIstate({ ...istate, Status: false, statusid: '', isAct: '' });
+        setIstate(prev => ({ ...prev, Status: false, statusid: '', isAct: '' }));
     };
     const statushandler = async () => {
-        setIstate({ ...istate, isloader: true });
+        setIstate(prev => ({ ...prev, isloader: true }));
         try {
             const data = { id: statusid, status: isAct == 'ACTIVE' ? 'INACTIVE' : 'ACTIVE' };
             const res = await dispatch(StatusUser(data));
             if (res?.payload?.code === 200) {
-                setIstate({ ...istate, Status: false, statusid: '', isAct: '' });
+                setIstate(prev => ({ ...prev, Status: false, statusid: '', isAct: '' }));
                 toast.success("Status updated successfully", commomObj);
                 dispatch(userList({
                     page: currentpage,
@@ -209,7 +178,7 @@ const UserManagement = () => {
         } catch (err) {
             console.log(err, 'status error');
         } finally {
-            setIstate({ ...istate, isloader: false });
+            setIstate(prev => ({ ...prev, isloader: false }));
         }
     };
 
