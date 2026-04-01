@@ -30,12 +30,12 @@ const initialState = {
 const UserManagement = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [disable, setDisable] = useState(false);
+  
     const { userData, loader } = useSelector((state) => state.user);
     const [currentpage, setCurrentpage] = useState(1);
     const [serialNo, setSerialNo] = useState(10);
     const [istate, setIstate] = useState(initialState);
-    const { show, startdate, enddate, search, timeFrame, modal, _id, isloading, Status, statusid, isAct, isloader, permanent } = istate;
+    const { show, modal, _id, isloading, Status, statusid, isAct, isloader, permanent } = istate;
 
 
     console.log(userData?.result?.[0], "userDatauserData");
@@ -49,7 +49,7 @@ const UserManagement = () => {
             search: "",
             timeFrame: "",
         }));
-    }, []);
+    }, [currentpage, dispatch]);
 
     //..............................pagination......................................................
     const Pagehandler = (pageNumber) => {
@@ -162,7 +162,7 @@ const handleClose = () => {
     const statushandler = async () => {
         setIstate(prev => ({ ...prev, isloader: true }));
         try {
-            const data = { id: statusid, status: isAct == 'ACTIVE' ? 'INACTIVE' : 'ACTIVE' };
+            const data = { id: statusid, status: isAct === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE' };
             const res = await dispatch(StatusUser(data));
             if (res?.payload?.code === 200) {
                 setIstate(prev => ({ ...prev, Status: false, statusid: '', isAct: '' }));

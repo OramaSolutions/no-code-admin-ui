@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+
 import './App.css';
 import React from 'react';
-import { BrowserRouter, HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import store from "../src/reduxToolkit/store.js"
 import { ToastContainer ,Slide} from 'react-toastify';
@@ -18,9 +18,9 @@ import ReportManagement from './components/Report/ReportManagement.js';
 import NotificationManagement from './components/Notification/NotificationManagement.js';
 import MyAccount from './components/Account/MyAccount.js';
 import ProjectDetails from './components/Project/ProjectDetails.js';
-import AddNotes from './components/Report/Notes.js';
+
 import Notes from './components/Report/Notes.js';
-import ChangePassword from './components/Account/ChangePassword.js';
+
 import ReportDetails from './components/Report/ReportDetails.js';
 
 

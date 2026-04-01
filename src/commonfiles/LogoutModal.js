@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+
 import Modal from 'react-bootstrap/Modal';
 import { commomObj } from '../utils';
 import { toast } from 'react-toastify'
@@ -44,12 +44,12 @@ const logout = async () => {
                         </Link>
 
                         <div className='LogOutModalArea'>
-                            <span><img src={require("../assets/images/logout-icon.png")} /></span>
+                            <span><img alt='Logout' src={require("../assets/images/logout-icon.png")} /></span>
                             <h3>Log Out</h3>
                             <p>Are you sure you want to Logout ?</p>
                             <div className='Buttons'>
                                 <Link onClick={handleClose} className='CancelBtn' data-dismiss="modal" > Cancel</Link>
-                                <a onClick={logout}  className='ConfirmBtn' > Confirm</a>
+                                <button onClick={logout}  className='ConfirmBtn' > Confirm</button>
                             </div>
                         </div>
 
