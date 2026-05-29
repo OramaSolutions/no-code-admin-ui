@@ -1,19 +1,39 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { Url } from '../../config/config.js';
-import { isLoggedIn } from "../../utils";
 import axiosInstance from '../../apis/axiosInstance.js';
 
 //=====================================auth login api=============================================================================
+const getStoredAdminData = () => {
+  const storedAdminData = window.localStorage.getItem('adminLogin');
+
+  if (!storedAdminData) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(storedAdminData);
+  } catch (error) {
+    window.localStorage.removeItem('adminLogin');
+    return {};
+  }
+};
+
+export const clearClientAuthData = () => {
+  window.localStorage.clear();
+  window.sessionStorage.clear();
+};
+
+const storedAdminData = getStoredAdminData();
+
 const initialState = {
-  adminData: {},
+  adminData: storedAdminData,
+  isAuthenticated: Boolean(storedAdminData?.activeUser?.jwtToken),
   loading: false,
   profileData: [],
 }
 
 export const adminLogin = createAsyncThunk('auth/adminLogin', async (payload, { rejectWithValue }) => {
   try {
-    console.log("heloooo")
+    
     const response = await axiosInstance.post(`admin/adminLogin`, payload);
     if (response.status === 200) {
       return response.data;
@@ -57,7 +77,7 @@ export const SetPassword = createAsyncThunk('auth/setPassword', async (payload, 
 })
 
 //================================================view profile api==========================
-export const viewProfile = createAsyncThunk('auth/viewprofile', async (undefined, { rejectWithValue }) => {
+export const viewProfile = createAsyncThunk('auth/viewprofile', async (_, { rejectWithValue }) => {
   try {
    
     const response = await axiosInstance.get(`admin/viewProfile`);
@@ -105,6 +125,15 @@ export const updateProfile = createAsyncThunk('auth/updateprofile', async (paylo
 const authSlice = createSlice({
   name: 'auth',
   initialState,
+  reducers: {
+    logoutUser: (state) => {
+      clearClientAuthData();
+      state.adminData = {};
+      state.isAuthenticated = false;
+      state.profileData = [];
+      state.loading = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(adminLogin.pending, (state) => {
@@ -113,6 +142,7 @@ const authSlice = createSlice({
       .addCase(adminLogin.fulfilled, (state, action) => {
         state.loading = false;
         state.adminData = action.payload;
+        state.isAuthenticated = Boolean(storedAdminData?.activeUser?.jwtToken);
         window.localStorage.setItem('adminLogin', JSON.stringify(action.payload));
       })
       .addCase(adminLogin.rejected, (state, action) => {
@@ -151,5 +181,6 @@ export const UploadDocumnet = createAsyncThunk('project/uploaddocumnet', async (
   }
 })
 
+export const { logoutUser } = authSlice.actions;
 
 export default authSlice.reducer;

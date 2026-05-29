@@ -147,33 +147,7 @@ const Dashboard = () => {
         }
     ];
 
-    // Issues cards data
-    // const issueCardsData = [
-    //     {
-    //         title: 'Total Reported Issues',
-    //         count: 128,
-    //         icon: 'exclamation-triangle',
-    //         variant: 'warning'
-    //     },
-    //     {
-    //         title: 'New Reported Issues',
-    //         count: 45,
-    //         icon: 'plus-circle',
-    //         variant: 'error'
-    //     },
-    //     {
-    //         title: 'Pending Issues',
-    //         count: 67,
-    //         icon: 'hourglass',
-    //         variant: 'warning'
-    //     },
-    //     {
-    //         title: 'Resolved Issues',
-    //         count: 16,
-    //         icon: 'check-double',
-    //         variant: 'success'
-    //     }
-    // ];
+
 
 
 

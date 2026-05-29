@@ -11,6 +11,7 @@ import {
     FaSignOutAlt,
     FaTimes
 } from 'react-icons/fa'
+import { BiSolidWidget } from "react-icons/bi";
 
 const initialState = {
     show: false
@@ -47,12 +48,12 @@ const Sidenav = ({ isOpen, onClose }) => {
             icon: FaCube,
             color: 'text-purple-600'
         },
-        // {
-        //     path: '/report-management',
-        //     name: 'Reported Issue Management',
-        //     icon: FaExclamationTriangle,
-        //     color: 'text-orange-600'
-        // },
+        {
+            path: '/application-management',
+            name: 'Application Management',
+            icon: BiSolidWidget,
+            color: 'text-orange-600'
+        },
         {
             path: '/notification-management',
             name: 'Notification Management',

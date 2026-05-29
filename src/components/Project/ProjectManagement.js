@@ -5,14 +5,12 @@ import Loader from '../../commonfiles/Loader'
 import { Commonpagination } from '../../commonfiles/Pagination'
 import { handledate, commomObj } from '../../utils'
 import { toast } from 'react-toastify';
-import { Deletemodal } from '../../commonfiles/DeleteModal'
-import { Statusmodal } from '../../commonfiles/StatusModal'
-import { Link, useNavigate } from 'react-router-dom'
+
+import {useNavigate } from 'react-router-dom'
 import { projectList } from '../../reduxToolkit/Slices/projectSlices'
-import UpdateModal from './UpdateModal'
+
 import AddNotification from '../Notification/AddNotification'
-import ApprovedModal from './ApprovedModal'
-import RemarkModal from './AddRemarkModal'
+
 import Layout from '../NavSideWrapper'
 import { FiBell } from "react-icons/fi";
 const initialState = {

@@ -1,15 +1,18 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Modal from 'react-bootstrap/Modal';
 import { commomObj } from '../utils';
 import { toast } from 'react-toastify'
 import axios from "axios";
 import { Url } from '../config/config';
+import { logoutUser } from '../reduxToolkit/Slices/authSlices';
 
 
 function LogoutModal({ show, handleClose }) {
 const navigate=useNavigate();
+const dispatch = useDispatch();
 
 
 const logout = async () => {
@@ -21,11 +24,13 @@ const logout = async () => {
       }
     );
 
-  
+    dispatch(logoutUser());
     toast.success("Logout Successfully", commomObj);
     navigate("/");
   } catch (err) {
-    toast.error("Logout failed", commomObj);
+    dispatch(logoutUser());
+    toast.success("Logout Successfully", commomObj);
+    navigate("/");
     console.error(err);
   }
 };

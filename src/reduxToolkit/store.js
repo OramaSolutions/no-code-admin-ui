@@ -5,6 +5,8 @@ import reportSlices from './Slices/reportSlices.js';
 import projectSlices from './Slices/projectSlices.js';
 import notificationSlice from './Slices/notificationSlices.js'
 import statsSlices from './Slices/statsSlices.js';
+import applicationManagementSlice from './Slices/applicationManagementSlices.js';
+import { setupAxiosInterceptors } from '../apis/setupInterceptors.js';
 
 
 const store = configureStore({
@@ -15,7 +17,10 @@ const store = configureStore({
     project: projectSlices,
     notification: notificationSlice,
     stats: statsSlices,
+    applicationManagement: applicationManagementSlice,
   },
 });
+
+setupAxiosInterceptors(store);
 
 export default store;
