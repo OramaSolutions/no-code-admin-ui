@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import UserModal from './UserModal'
 import { useSelector, useDispatch } from 'react-redux'
-import { DeleteUser, StatusUser, userList } from '../../reduxToolkit/Slices/userSlices'
+import { DeleteUser, StatusUser, userList, ToggleInternalUser } from '../../reduxToolkit/Slices/userSlices'
 import Loader from '../../commonfiles/Loader'
 import { Commonpagination } from '../../commonfiles/Pagination'
 import { handledate, commomObj } from '../../utils'
@@ -182,6 +182,20 @@ const handleClose = () => {
         }
     };
 
+    const handleToggleInternal = async (id, currentValue) => {
+        try {
+            const res = await dispatch(ToggleInternalUser({ id, isInternalUser: !currentValue }));
+            if (res?.payload?.code === 200) {
+                toast.success("Internal user status updated", commomObj);
+                dispatch(userList({ page: currentpage, startdate: "", enddate: "", search: "", timeFrame: "" }));
+            } else {
+                toast.error(res?.payload?.message || "Error updating status", commomObj);
+            }
+        } catch (err) {
+            console.log('toggleInternal error:', err);
+        }
+    };
+
     const navigateHandler = (id, item) => {
         window.localStorage.setItem('userId', id);
         navigate('/user-management-details/personal', { state: item });
@@ -214,6 +228,7 @@ const handleClose = () => {
                                     <th>Email Id</th>
                                     <th>Date of Registration</th>
                                     <th>Status</th>
+                                    <th>Internal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -236,6 +251,16 @@ const handleClose = () => {
                                                     <span className={item.userStatus === "ACTIVE" ? "Green" : "Red"}>
                                                         {item.userStatus}
                                                     </span>
+                                                </td>
+                                                <td>
+                                                    <label className="Switch">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={!!item.isInternalUser}
+                                                            onChange={() => handleToggleInternal(item._id, !!item.isInternalUser)}
+                                                        />
+                                                        <span className="slider" />
+                                                    </label>
                                                 </td>
                                                 <td>
                                                     <div className="flex items-center gap-2">
@@ -275,7 +300,7 @@ const handleClose = () => {
                                         ))
                                     ) : (
                                         <tr>
-                                            <td colSpan="8"><p>No Data found.</p></td>
+                                            <td colSpan="9"><p>No Data found.</p></td>
                                         </tr>
                                     )
                                 ) : <Loader />}

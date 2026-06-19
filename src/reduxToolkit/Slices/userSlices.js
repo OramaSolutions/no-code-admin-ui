@@ -68,6 +68,22 @@ export const DeleteUser = createAsyncThunk(
   }
 );
 
+export const ToggleInternalUser = createAsyncThunk(
+  'user/toggleInternalUser',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.patch(`admin/toggleInternalUser`, payload);
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return rejectWithValue(response.data);
+      }
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 //=====================================reducer=======================================================================================
 const userSlice = createSlice({
   name: 'user',
