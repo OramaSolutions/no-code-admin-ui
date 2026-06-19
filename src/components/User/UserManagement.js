@@ -256,7 +256,7 @@ const handleClose = () => {
                                                     <label className="Switch">
                                                         <input
                                                             type="checkbox"
-                                                            checked={!!item.isInternalUser}
+                                                            checked={!item.isInternalUser}
                                                             onChange={() => handleToggleInternal(item._id, !!item.isInternalUser)}
                                                         />
                                                         <span className="slider" />
